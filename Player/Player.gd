@@ -27,7 +27,6 @@ func change_state(new_state):
         State.NORMAL:
             pass
         State.STUNNED:
-            # TODO: stunned effect/animation
             stunned_timer.start()
             animation_player.play("stun")
 
