@@ -41,17 +41,14 @@ func _physics_process(delta):
     
     if _can_move():
         move_and_slide(velocity)
-    # Loop through collisions
-    for i in get_slide_count():
-        var collision = get_slide_collision(i)
-        if collision.collider != null:
-            var collider = collision.collider
-            if collider.is_in_group("Bullets"):
-                stun()
-                collider.queue_free()
 
 func _can_move() -> bool:
     return current_state != State.STUNNED
 
 func _on_StunnedTimer_timeout():
     change_state(State.NORMAL)
+
+func _on_Hitbox_body_entered(body):
+    if body.is_in_group("Bullets"):
+        stun()
+        body.queue_free()

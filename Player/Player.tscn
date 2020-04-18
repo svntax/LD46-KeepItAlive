@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 6, 8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "stun"
@@ -22,6 +22,9 @@ tracks/0/keys = {
 "update": 1,
 "values": [ Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( -2, -1 ), Vector2( 2, 2 ), Vector2( -1, 1 ), Vector2( 0, 0 ) ]
 }
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9, 10 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Players",
@@ -41,4 +44,11 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/stun = SubResource( 2 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 0, 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 3 )
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_StunnedTimer_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
