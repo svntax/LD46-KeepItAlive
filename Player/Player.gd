@@ -7,6 +7,7 @@ enum State {NORMAL, STUNNED}
 onready var current_state = State.NORMAL
 
 onready var velocity : Vector2 = Vector2()
+onready var direction = 1 # 1 = right, -1 = left
 
 onready var sword_angle = 0
 
@@ -14,6 +15,7 @@ onready var animation_player = $AnimationPlayer
 onready var sword_player = $SwordPlayer
 onready var stunned_timer = $StunnedTimer
 onready var sword_pivot = $SwordPivot
+onready var sprite = $Sprite
 
 func _ready():
     pass
@@ -57,11 +59,19 @@ func _physics_process(delta):
     if Input.is_action_pressed("MOVE_DOWN"):
         velocity.y += WALK_SPEED
     
+    # Face the mouse
+    if get_global_mouse_position().x > global_position.x:
+        direction = 1
+    else:
+        direction = -1
+    sprite.scale.x = direction
+    
     if _can_move():
         move_and_slide(velocity)
 
 func _can_move() -> bool:
-    return current_state != State.STUNNED
+    return current_state != State.STUNNED \
+        and !sword_player.is_playing()
 
 func _on_StunnedTimer_timeout():
     change_state(State.NORMAL)
