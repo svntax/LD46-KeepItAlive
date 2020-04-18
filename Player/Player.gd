@@ -16,9 +16,10 @@ onready var sword_player = $SwordPlayer
 onready var stunned_timer = $StunnedTimer
 onready var sword_pivot = $SwordPivot
 onready var sprite = $Sprite
+onready var slash_sprite = $SwordPivot/HiltPivot/SlashEffect
 
 func _ready():
-    pass
+    slash_sprite.hide()
 
 func change_state(new_state):
     current_state = new_state
