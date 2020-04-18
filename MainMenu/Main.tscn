@@ -7,15 +7,18 @@
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 286.922, 151.626 )
+position = Vector2( 207.502, 182.311 )
 texture = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 249.599
-margin_top = 73.4801
-margin_right = 320.599
-margin_bottom = 87.4801
-text = "Main Menu"
+margin_left = 170.179
+margin_top = 104.165
+margin_right = 242.179
+margin_bottom = 135.165
+text = "Main Menu
+Press Enter"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

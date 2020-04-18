@@ -9,7 +9,7 @@ extents = Vector2( 32, 32 )
 [node name="Gameplay" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 310.512, 257.755 )
+position = Vector2( 145.512, 250.755 )
 
 [node name="Sprite" type="Sprite" parent="StaticBody2D"]
 modulate = Color( 0, 0, 0, 1 )
@@ -19,7 +19,7 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 374.512, 257.755 )
+position = Vector2( 209.512, 250.755 )
 
 [node name="Sprite" type="Sprite" parent="StaticBody2D2"]
 modulate = Color( 0, 0, 0, 1 )
@@ -29,7 +29,7 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2( 438.512, 257.755 )
+position = Vector2( 273.512, 250.755 )
 
 [node name="Sprite" type="Sprite" parent="StaticBody2D3"]
 modulate = Color( 0, 0, 0, 1 )
