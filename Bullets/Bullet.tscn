@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "reflect"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:collision_mask")
@@ -21,8 +21,7 @@ tracks/0/keys = {
 "values": [ 7 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "rest"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:collision_mask")
 tracks/0/interp = 1
@@ -50,5 +49,5 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/reflect = SubResource( 3 )
-anims/rest = SubResource( 2 )
+anims/reflect = SubResource( 2 )
+anims/rest = SubResource( 3 )
