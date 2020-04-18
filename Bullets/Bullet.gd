@@ -6,10 +6,7 @@ onready var reflected_velocity : Vector2 = Vector2()
 onready var animation_player = $AnimationPlayer
 
 func _ready():
-    #animation_player.play("rest")
-    # TODO: Temporary
-    velocity.x = 1
-    velocity.y = 1
+    animation_player.play("rest")
 
 func reflect_back(vec : Vector2) -> void:
     reflected_velocity = vec * 2
