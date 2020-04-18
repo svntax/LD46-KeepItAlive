@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Bullets/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/BasicEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/KnightEnemy.tscn" type="PackedScene" id=5]
 
 [node name="Gameplay" type="Node2D"]
 
@@ -23,3 +24,6 @@ collision_mask = 7
 
 [node name="TestBasicEnemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 279.886, 220.841 )
+
+[node name="KnightEnemy" parent="." instance=ExtResource( 5 )]
+position = Vector2( 64, 75 )
