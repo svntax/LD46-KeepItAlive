@@ -2,7 +2,11 @@ extends KinematicBody2D
 
 onready var velocity : Vector2 = Vector2()
 
+onready var animation_player = $AnimationPlayer
+# TODO: play the reflect animation when the bullet is reflected
+
 func _ready():
+    #animation_player.play("rest")
     # TODO: Temporary
     velocity.x = 1
     velocity.y = 1

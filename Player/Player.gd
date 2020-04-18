@@ -7,6 +7,7 @@ onready var current_state = State.NORMAL
 
 onready var velocity : Vector2 = Vector2()
 
+onready var animation_player = $AnimationPlayer
 onready var stunned_timer = $StunnedTimer
 
 func _ready():
@@ -18,7 +19,9 @@ func change_state(new_state):
         State.NORMAL:
             pass
         State.STUNNED:
+            # TODO: stunned effect/animation
             stunned_timer.start()
+            animation_player.play("stun")
 
 func stun() -> void:
     if current_state != State.STUNNED:
@@ -45,6 +48,7 @@ func _physics_process(delta):
             var collider = collision.collider
             if collider.is_in_group("Bullets"):
                 stun()
+                collider.queue_free()
 
 func _can_move() -> bool:
     return current_state != State.STUNNED
