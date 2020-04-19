@@ -4,7 +4,7 @@ const BULLET_KNOCKBACK = 8
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 var player_scene = load("res://Player/Player.tscn")
-
+var gameplay_scene = load("res://GameplayScene/Gamplay.tscn")
 
 
 onready var velocity : Vector2 = Vector2()
@@ -18,7 +18,7 @@ onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var animation_player = $AnimationPlayer
 
-onready var PREFERRED_DISTANCE_FROM_CLOSEST_ADVERSARY = 200
+onready var AGGRO_RANGE = 200
 onready var SPEED = 500
 onready var MOVEMENT_DURATION = 0.2
 
@@ -52,24 +52,27 @@ func knockback(x : float, y : float) -> void:
     knockback_velocity.x = x
     knockback_velocity.y = y
     
-onready var random_offset_factor = 0.2;
+onready var random_offset_factor = 0.15;
     
 func get_new_movement_direction() -> Vector2:
     var distance = global_position.distance_to(get_coords_of_closest_adversary())
-    var go_towards_adversary
-    if distance <= PREFERRED_DISTANCE_FROM_CLOSEST_ADVERSARY:
-        go_towards_adversary = -1
-    else:
+    var go_towards_adversary = 0
+    if distance < AGGRO_RANGE:
         go_towards_adversary = 1
     var direction = go_towards_adversary * global_position.direction_to(get_coords_of_closest_adversary())
     var random_offset = Vector2(randf(), randf()).normalized();
     return (direction + random_offset * random_offset_factor).normalized();
 
+#func get_vector_to_center_screen() -> Vector2:
+#    var viewport_rect = get_viewport_rect()
+#    print("ViewPort Position", viewport_rect.position)
+#    print("ViewPort Size", viewport_rect.size)
+#    return global_position
     
 func get_coords_of_closest_adversary() -> Vector2:
     # Todo also have the monster included in this consideration
-    var player = get_tree().get_nodes_in_group("Players")[0]
-    return player.global_position 
+    var enemy = get_tree().get_nodes_in_group("Enemies")[0]
+    return enemy.global_position 
 
 func damage() -> void:
     health -= 1

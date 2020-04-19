@@ -10,7 +10,7 @@ extents = Vector2( 6, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 12 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "attack"
 length = 0.8
 step = 0.05
@@ -51,8 +51,7 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "rest"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/AttackSprite:visible")
@@ -119,6 +118,6 @@ wait_time = 0.5
 [node name="MovementDurationTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 4 )
-anims/rest = SubResource( 3 )
+anims/attack = SubResource( 3 )
+anims/rest = SubResource( 4 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

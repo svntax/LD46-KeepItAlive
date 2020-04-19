@@ -22,7 +22,7 @@ onready var sprite = $Body/Sprite
 onready var attack_sprite = $Body/AttackSprite
 onready var animation_player = $AnimationPlayer
 
-onready var SPEED = 100
+onready var SPEED = 85
 onready var MOVEMENT_DURATION = 1
 
 func _ready():
@@ -47,9 +47,15 @@ func shoot_bullet() -> void:
     var bullet = bullet_scene.instance()
     bullet.global_position = global_position
     get_tree().get_root().add_child(bullet)
-    var player = get_tree().get_nodes_in_group("Players")[0]
-    var bullet_vel = global_position.direction_to(player.global_position) * 3
+    var bullet_vel = global_position.direction_to(get_attack_target()) * 3
     bullet.set_velocity(bullet_vel.x, bullet_vel.y)
+    
+func get_attack_target() -> Vector2:
+    var player = get_tree().get_nodes_in_group("Players")[0]
+    var boss = get_tree().get_nodes_in_group("Boss")[0]
+    if global_position.distance_to(player.global_position) < global_position.distance_to(boss.global_position):
+        return player.global_position
+    return boss.global_position
 
 func knockback(x : float, y : float) -> void:
     knockback_velocity.x = x

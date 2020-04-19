@@ -11,7 +11,7 @@ extents = Vector2( 6, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 12 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "attack"
 length = 2.5
 tracks/0/type = "value"
@@ -101,8 +101,7 @@ tracks/6/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "rest"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AttackSprite:visible")
@@ -204,8 +203,8 @@ wait_time = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rest"
-anims/attack = SubResource( 4 )
-anims/rest = SubResource( 3 )
+anims/attack = SubResource( 3 )
+anims/rest = SubResource( 4 )
 
 [node name="BulletSprite" type="Sprite" parent="."]
 visible = false
