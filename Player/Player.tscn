@@ -138,6 +138,7 @@ shape = SubResource( 3 )
 
 [node name="SwordPivot" type="Node2D" parent="."]
 position = Vector2( 0, 2 )
+z_index = 10
 
 [node name="HiltPivot" type="Position2D" parent="SwordPivot"]
 

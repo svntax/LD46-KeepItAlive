@@ -47,6 +47,7 @@ func _physics_process(delta):
     if Input.is_action_just_pressed("SLASH"):
         if !sword_player.is_playing():
             sword_player.play("slash")
+            SoundHandler.playerSwingsSword.play()
     
     velocity.x = 0
     velocity.y = 0
