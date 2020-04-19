@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 onready var velocity : Vector2 = Vector2()
-onready var reflected_velocity : Vector2 = Vector2() 
+onready var reflected_velocity : Vector2 = Vector2()
+onready var is_reflected = false
 
 onready var animation_player = $AnimationPlayer
 
@@ -12,6 +13,7 @@ func reflect_back(vec : Vector2) -> void:
     reflected_velocity = vec * 2
     set_velocity(vec.x, vec.y)
     animation_player.play("reflect")
+    is_reflected = true
 
 func set_velocity(x : float, y : float) -> void:
     velocity.x = x

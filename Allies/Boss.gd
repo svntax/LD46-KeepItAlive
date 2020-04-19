@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const BULLET_KNOCKBACK = 64
+const BULLET_KNOCKBACK = 8
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 var player_scene = load("res://Player/Player.tscn")
@@ -10,7 +10,7 @@ var player_scene = load("res://Player/Player.tscn")
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-onready var health = 2
+onready var health = 10
 
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
@@ -84,7 +84,9 @@ func _physics_process(delta):
     move_and_slide(velocity + knockback_velocity)
 
 func _shoot_cooldown_finished():
-    shoot_bullet()
+    #shoot_bullet()
+    # Disabled shooting for now
+    pass
     
 func _begin_movement():
     velocity = get_new_movement_direction() * SPEED
@@ -99,8 +101,9 @@ func _on_body_entered(body):
         # TODO: what should happen if player touches an enemy
         pass
     if body.is_in_group("Bullets"):
-        # Damage the enemy and remove the bullet
-        damage()
+        # Damage the boss only from non-reflected bullets
+        if !body.is_reflected:
+            damage()
         var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
         knockback(push.x, push.y)
         body.queue_free()
