@@ -19,6 +19,7 @@ onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var sprite = $Sprite
 onready var attack_sprite = $AttackSprite
+onready var bullet_sprite = $BulletSprite
 onready var animation_player = $AnimationPlayer
 
 onready var PREFERRED_DISTANCE_FROM_CLOSEST_ADVERSARY = 200
@@ -46,7 +47,7 @@ func _ready():
 func shoot_bullet() -> void:
     if boss != null and is_instance_valid(boss):
         var bullet = bullet_scene.instance()
-        bullet.global_position = global_position
+        bullet.global_position = bullet_sprite.global_position
         get_tree().get_root().add_child(bullet)
         var bullet_vel = global_position.direction_to(boss.global_position) * 3
         bullet.set_velocity(bullet_vel.x, bullet_vel.y)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Enemies/mage_enemy.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/BasicEnemy.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/mage_enemy_attack.png" type="Texture" id=3]
+[ext_resource path="res://Bullets/bullet_grow.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 8 )
@@ -63,6 +64,42 @@ tracks/3/keys = {
 "method": "shoot_bullet"
 } ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BulletSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BulletSprite:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "rest"
@@ -91,6 +128,44 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("BulletSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 40.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 32.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 40.0
+scale = 4.0
+scale_random = 0.8
 
 [node name="Mage" type="KinematicBody2D" groups=[
 "Enemies",
@@ -105,16 +180,15 @@ texture = ExtResource( 1 )
 visible = false
 texture = ExtResource( 3 )
 hframes = 2
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( -1, 8 )
 shape = SubResource( 1 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( 0, 6 )
+position = Vector2( -1, 6 )
 collision_layer = 4
 collision_mask = 6
 
@@ -132,4 +206,17 @@ wait_time = 0.5
 autoplay = "rest"
 anims/attack = SubResource( 4 )
 anims/rest = SubResource( 3 )
+
+[node name="BulletSprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -18 )
+texture = ExtResource( 4 )
+hframes = 3
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, -18 )
+emitting = false
+amount = 6
+local_coords = false
+process_material = SubResource( 5 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

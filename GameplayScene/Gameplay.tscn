@@ -20,11 +20,14 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 143.872, 196.583 )
 
-[node name="TestBasicEnemy" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 279.886, 220.841 )
+[node name="TestMage" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 342.281, 270 )
 
 [node name="KnightEnemy" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 64, 75 )
 
 [node name="Boss" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 201.924, 146.181 )
+
+[node name="Mage" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 52.5454, 260.472 )

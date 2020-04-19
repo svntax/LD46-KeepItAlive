@@ -2,6 +2,7 @@
 
 [ext_resource path="res://Bullets/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://Bullets/bullet.png" type="Texture" id=2]
+[ext_resource path="res://Bullets/BulletParticles01.tres" type="Material" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -133,20 +134,6 @@ tracks/4/keys = {
 "values": [ Color( 0.607843, 0.678431, 0.717647, 1 ) ]
 }
 
-[sub_resource type="ParticlesMaterial" id=4]
-emission_shape = 1
-emission_sphere_radius = 8.0
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 40.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 32.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-damping = 32.0
-scale = 6.0
-scale_random = 0.8
-
 [sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 1
 emission_sphere_radius = 8.0
@@ -197,7 +184,7 @@ anims/rest = SubResource( 3 )
 amount = 5
 lifetime = 0.25
 local_coords = false
-process_material = SubResource( 4 )
+process_material = ExtResource( 3 )
 
 [node name="Particles2" type="Particles2D" parent="."]
 modulate = Color( 0.796078, 0.858824, 0.988235, 1 )
