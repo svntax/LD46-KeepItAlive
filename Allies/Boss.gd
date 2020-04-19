@@ -16,6 +16,7 @@ onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
+onready var animation_player = $AnimationPlayer
 
 onready var PREFERRED_DISTANCE_FROM_CLOSEST_ADVERSARY = 200
 onready var SPEED = 500
@@ -74,6 +75,9 @@ func damage() -> void:
     health -= 1
     if health <= 0:
         queue_free()
+    else:
+        if !animation_player.is_playing():
+            animation_player.play("damaged")
         
 
 func _physics_process(delta):
@@ -98,12 +102,12 @@ func _end_movement():
 
 func _on_body_entered(body):
     if body.is_in_group("Players"):
-        # TODO: what should happen if player touches an enemy
+        # TODO: what should happen if player touches the boss
         pass
     if body.is_in_group("Bullets"):
-        # Damage the boss only from non-reflected bullets
+        # Damage and knockback only from non-reflected bullets
         if !body.is_reflected:
             damage()
-        var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
-        knockback(push.x, push.y)
+            var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
+            knockback(push.x, push.y)
         body.queue_free()
