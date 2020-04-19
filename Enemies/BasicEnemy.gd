@@ -3,9 +3,9 @@ extends KinematicBody2D
 const BULLET_KNOCKBACK = 64
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
-var player_scene = load("res://Player/Player.tscn")
 
-
+onready var direction = 1 # 1 = right, -1 = left
+onready var player = get_tree().get_nodes_in_group("Players")[0]
 
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
@@ -16,6 +16,7 @@ onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
+onready var sprite = $Sprite
 
 onready var PREFERRED_DISTANCE_FROM_CLOSEST_ADVERSARY = 200
 onready var SPEED = 500
@@ -43,7 +44,6 @@ func shoot_bullet() -> void:
     var bullet = bullet_scene.instance()
     bullet.global_position = global_position
     get_tree().get_root().add_child(bullet)
-    var player = get_tree().get_nodes_in_group("Players")[0]
     var bullet_vel = global_position.direction_to(player.global_position) * 3
     bullet.set_velocity(bullet_vel.x, bullet_vel.y)
 
@@ -67,7 +67,7 @@ func get_new_movement_direction() -> Vector2:
     
 func get_coords_of_closest_adversary() -> Vector2:
     # Todo also have the monster included in this consideration
-    var player = get_tree().get_nodes_in_group("Players")[0]
+    #var player = get_tree().get_nodes_in_group("Players")[0]
     return player.global_position 
 
 func damage() -> void:
@@ -82,6 +82,13 @@ func _physics_process(delta):
         knockback_velocity = knockback_velocity.linear_interpolate(Vector2.ZERO, 0.1)
     
     move_and_slide(velocity + knockback_velocity)
+    
+    # Face the player
+    if player.global_position.x > global_position.x:
+        direction = 1
+    else:
+        direction = -1
+    sprite.scale.x = direction
 
 func _shoot_cooldown_finished():
     shoot_bullet()
