@@ -90,3 +90,5 @@ func _on_Sword_body_entered(body):
     if body.is_in_group("Bullets"):
         var push = Vector2(-1, 0).rotated(sword_angle) * REFLECT_SPEED
         body.reflect_back(push)
+    elif body.is_in_group("Enemies"):
+        body.stun()

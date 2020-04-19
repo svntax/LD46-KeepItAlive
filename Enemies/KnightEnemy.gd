@@ -4,6 +4,9 @@ const BULLET_KNOCKBACK = 64
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 
+enum State {NORMAL, STUNNED}
+onready var current_state = State.NORMAL
+
 onready var direction = 1 # 1 = right, -1 = left
 onready var boss = get_tree().get_nodes_in_group("Boss")[0]
 
@@ -11,6 +14,7 @@ onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
 onready var health = 2
+onready var has_stun_immunity = false
 
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
@@ -20,6 +24,9 @@ onready var body_root = $Body
 onready var sprite = $Body/Sprite
 onready var attack_sprite = $Body/AttackSprite
 onready var animation_player = $AnimationPlayer
+onready var effects_player = $EffectsPlayer
+onready var stunned_timer = $StunnedTimer
+onready var stun_immunity_timer = $StunImmunityTimer
 
 onready var SPEED = 85
 onready var MOVEMENT_DURATION = 1
@@ -38,8 +45,30 @@ func _ready():
     movement_duration_timer.connect("timeout", self, "_end_movement")
     movement_duration_timer.one_shot = true
     
+    stunned_timer.connect("timeout", self, "_stunned_timer_finished")
+    
+    stun_immunity_timer.connect("timeout", self, "_stun_immunity_finished")
+    stun_immunity_timer.wait_time = 2
     
     hitbox.connect("body_entered", self, "_on_body_entered")
+
+func change_state(new_state):
+    current_state = new_state
+    match new_state:
+        State.NORMAL:
+            # What should happen when entering the NORMAL state
+            effects_player.stop()
+            effects_player.play("rest")
+        State.STUNNED:
+            # What should happen when entering the STUNNED state
+            effects_player.play("stun")
+            stunned_timer.start()
+            has_stun_immunity = true
+            stun_immunity_timer.start()
+
+func stun() -> void:
+    if current_state != State.STUNNED and !has_stun_immunity:
+        change_state(State.STUNNED)
 
 # Shoots a bullet towards the player
 func shoot_bullet() -> void:
@@ -95,7 +124,6 @@ func _physics_process(delta):
         else:
             direction = -1
         body_root.scale.x = direction
-        #attack_sprite.scale.x = direction
 
 func _shoot_cooldown_finished():
     # TODO: temporary
@@ -109,6 +137,12 @@ func _begin_movement():
 func _end_movement():
     velocity = Vector2.ZERO
 
+func _stunned_timer_finished():
+    change_state(State.NORMAL)
+
+func _stun_immunity_finished():
+    has_stun_immunity = false
+
 func _on_body_entered(body):
     if body.is_in_group("Players"):
         # TODO: what should happen if player touches an enemy
@@ -116,10 +150,10 @@ func _on_body_entered(body):
     if body.is_in_group("Bullets"):
         # Damage the enemy and remove the bullet
         damage()
+        stun()
         var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
         knockback(push.x, push.y)
         body.queue_free()
-
 
 func _on_AnimationPlayer_animation_finished(anim_name):
     if anim_name == "attack":
