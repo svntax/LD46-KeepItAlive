@@ -22,4 +22,4 @@ func _physics_process(delta):
     if collision:
         velocity = velocity.bounce(collision.normal)
     if reflected_velocity.length() > 0:
-        reflected_velocity = reflected_velocity.linear_interpolate(Vector2.ZERO, 0.15)
+        reflected_velocity = reflected_velocity.linear_interpolate(Vector2.ZERO, 0.12)
