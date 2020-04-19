@@ -5,7 +5,8 @@ const BULLET_KNOCKBACK = 64
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 var player_scene = load("res://Player/Player.tscn")
 
-
+onready var direction = 1 # 1 = right, -1 = left
+onready var boss = get_tree().get_nodes_in_group("Boss")[0]
 
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
@@ -16,7 +17,10 @@ onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
-
+onready var body_root = $Body
+onready var sprite = $Body/Sprite
+onready var attack_sprite = $Body/AttackSprite
+onready var animation_player = $AnimationPlayer
 
 onready var SPEED = 100
 onready var MOVEMENT_DURATION = 1
@@ -78,9 +82,19 @@ func _physics_process(delta):
         knockback_velocity = knockback_velocity.linear_interpolate(Vector2.ZERO, 0.1)
     
     move_and_slide(velocity + knockback_velocity)
+    
+    # Face the boss
+    if boss != null and is_instance_valid(boss):
+        if boss.global_position.x > global_position.x:
+            direction = 1
+        else:
+            direction = -1
+        body_root.scale.x = direction
+        #attack_sprite.scale.x = direction
 
 func _shoot_cooldown_finished():
-    shoot_bullet()
+    # TODO: temporary
+    animation_player.play("attack")
     
 func _begin_movement():
     velocity = get_new_movement_direction() * SPEED
@@ -100,3 +114,8 @@ func _on_body_entered(body):
         var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
         knockback(push.x, push.y)
         body.queue_free()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+    if anim_name == "attack":
+        animation_player.play("rest")
