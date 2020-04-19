@@ -9,6 +9,7 @@ onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
 onready var health = 10
+onready var is_dead = false
 
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
@@ -79,10 +80,21 @@ func get_coords_of_closest_adversary() -> Vector2:
     # Default to middle of level
     return Vector2(200, 160)
 
+func kill() -> void:
+    # TODO: game over
+    hide()
+    is_dead = true
+    # Disable collisions
+    self.collision_layer = 0
+    self.collision_mask = 0
+    hitbox.monitoring = false
+    hitbox.monitorable = false
+
 func damage() -> void:
     health -= 1
     if health <= 0:
-        queue_free()
+        # Do NOT queue_free() the boss, do a custom death handling
+        kill()
     else:
         if !effects_player.is_playing():
             effects_player.play("damaged")

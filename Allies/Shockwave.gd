@@ -12,3 +12,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_DamageArea_body_entered(body):
     if body.is_in_group("Enemies"):
         body.damage()
+        body.stun()
