@@ -78,8 +78,8 @@ func get_coords_of_closest_adversary() -> Vector2:
 func damage() -> void:
     health -= 1
     if health <= 0:
+        SoundHandler.mageDeath.play()
         queue_free()
-        
 
 func _physics_process(delta):
     # Knockback velocity is reduced

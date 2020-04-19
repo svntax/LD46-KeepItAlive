@@ -3,9 +3,7 @@ extends KinematicBody2D
 const BULLET_KNOCKBACK = 8
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
-var player_scene = load("res://Player/Player.tscn")
-var gameplay_scene = load("res://GameplayScene/Gamplay.tscn")
-
+var shockwave_scene = load("res://Allies/Shockwave.tscn")
 
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
@@ -17,6 +15,8 @@ onready var hitbox = $Hitbox
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var animation_player = $AnimationPlayer
+onready var effects_player = $EffectsPlayer
+onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
 
 onready var AGGRO_RANGE = 200
 onready var SPEED = 500
@@ -71,17 +71,26 @@ func get_new_movement_direction() -> Vector2:
     
 func get_coords_of_closest_adversary() -> Vector2:
     # Todo also have the monster included in this consideration
-    var enemy = get_tree().get_nodes_in_group("Enemies")[0]
-    return enemy.global_position 
+    var enemies = get_tree().get_nodes_in_group("Enemies")
+    if !enemies.empty(): # Need this check in case all enemies are dead at any moment
+        var enemy = get_tree().get_nodes_in_group("Enemies")[0]
+        return enemy.global_position
+    
+    # Default to middle of level
+    return Vector2(200, 160)
 
 func damage() -> void:
     health -= 1
     if health <= 0:
         queue_free()
     else:
-        if !animation_player.is_playing():
-            animation_player.play("damaged")
-        
+        if !effects_player.is_playing():
+            effects_player.play("damaged")
+
+func spawn_shockwave() -> void:
+    var shockwave = shockwave_scene.instance()
+    shockwave.global_position = shockwave_spawn_pos.global_position
+    get_tree().get_root().add_child(shockwave)
 
 func _physics_process(delta):
     # Knockback velocity is reduced
@@ -93,7 +102,7 @@ func _physics_process(delta):
 func _shoot_cooldown_finished():
     #shoot_bullet()
     # Disabled shooting for now
-    pass
+    animation_player.play("smash_attack")
     
 func _begin_movement():
     velocity = get_new_movement_direction() * SPEED
@@ -114,3 +123,7 @@ func _on_body_entered(body):
             var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
             knockback(push.x, push.y)
         body.queue_free()
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+    if anim_name == "smash_attack":
+        animation_player.play("rest")

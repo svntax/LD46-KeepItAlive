@@ -3,7 +3,6 @@ extends KinematicBody2D
 const BULLET_KNOCKBACK = 64
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
-var player_scene = load("res://Player/Player.tscn")
 
 onready var direction = 1 # 1 = right, -1 = left
 onready var boss = get_tree().get_nodes_in_group("Boss")[0]

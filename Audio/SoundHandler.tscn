@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Audio/SoundHandler.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Player_Swings_Sword.wav" type="AudioStream" id=2]
 [ext_resource path="res://Audio/Knight_Hits_Boss.wav" type="AudioStream" id=3]
 [ext_resource path="res://Audio/Boss_Slam.wav" type="AudioStream" id=4]
 [ext_resource path="res://Audio/Rumble.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Mage_Death.wav" type="AudioStream" id=6]
 
 [node name="SoundHandler" type="Node"]
 script = ExtResource( 1 )
@@ -22,4 +23,8 @@ volume_db = -4.0
 
 [node name="Rumble" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -8.0
+
+[node name="MageDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 volume_db = -8.0
