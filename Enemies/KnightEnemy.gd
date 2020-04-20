@@ -16,6 +16,8 @@ onready var knockback_velocity : Vector2 = Vector2()
 onready var health = 2
 onready var has_stun_immunity = false
 
+onready var AGGRO_RANGE = 250
+
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
 onready var movement_interval_timer = $MovementIntervalTimer
@@ -92,17 +94,16 @@ func knockback(x : float, y : float) -> void:
 onready var random_offset_factor = 0.2;
     
 func get_new_movement_direction() -> Vector2:
-    var distance = global_position.distance_to(get_coords_of_closest_adversary())
+    var distance = global_position.distance_to(get_coords_of_target_adversary())
     var go_towards_adversary
-    var direction = 1 * global_position.direction_to(get_coords_of_closest_adversary())
+    var direction = 1 * global_position.direction_to(get_coords_of_target_adversary())
     var random_offset = Vector2(randf(), randf()).normalized();
     return (direction + random_offset * random_offset_factor).normalized();
 
     
-func get_coords_of_closest_adversary() -> Vector2:
-    # Todo also have the monster included in this consideration
-    var player = get_tree().get_nodes_in_group("Players")[0]
-    return player.global_position 
+func get_coords_of_target_adversary() -> Vector2:
+    var boss = get_tree().get_nodes_in_group("Boss")[0]
+    return boss.global_position 
 
 func damage() -> void:
     health -= 1

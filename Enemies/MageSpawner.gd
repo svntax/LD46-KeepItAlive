@@ -17,8 +17,6 @@ func _ready():
     spawn_timer.start()
 
 func spawn_mage_enemy() -> void:
-    if are_players_too_close():
-        return;
     var mage = mage_enemy_scene.instance()
     mage.global_position = spawn_pos.global_position
     game_root.add_entity(mage)
@@ -35,7 +33,7 @@ func get_spawn_time() -> float:
     
 
 func _spawn_timer_finished():
-    if !animation_player.is_playing():
+    if !animation_player.is_playing() and !are_players_too_close():
         animation_player.play("active")
 
 func _on_AnimationPlayer_animation_finished(anim_name):

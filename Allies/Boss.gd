@@ -19,7 +19,7 @@ onready var animation_player = $AnimationPlayer
 onready var effects_player = $EffectsPlayer
 onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
 
-onready var AGGRO_RANGE = 200
+onready var AGGRO_RANGE = 300
 onready var SPEED = 500
 onready var MOVEMENT_DURATION = 0.2
 
