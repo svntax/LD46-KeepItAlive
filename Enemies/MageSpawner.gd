@@ -33,7 +33,11 @@ func get_spawn_time() -> float:
     
 
 func _spawn_timer_finished():
-    if !animation_player.is_playing() and !are_players_too_close():
+    if are_players_too_close():
+        spawn_timer.wait_time = get_spawn_time()
+        spawn_timer.start()
+        return;
+    if !animation_player.is_playing():
         animation_player.play("active")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
