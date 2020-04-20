@@ -10,8 +10,6 @@ onready var start_time = OS.get_ticks_msec()
 
 onready var game_root = get_tree().get_root().get_node("Gameplay")
 
-onready var GAME_DURATION_MILLIS = 8 * 60 * 1000 # 8 minutes
-
 onready var ENEMIES_PER_MINUTE_START = 3;
 onready var ENEMIES_PER_MINUTE_END = 8;
 
@@ -42,7 +40,7 @@ func get_spawn_time() -> float:
     
 func get_enemies_per_minute_now() -> float:
     var difference = ENEMIES_PER_MINUTE_END - ENEMIES_PER_MINUTE_START
-    var progress = (OS.get_ticks_msec() - start_time) / GAME_DURATION_MILLIS
+    var progress = (OS.get_ticks_msec() - start_time) / Globals.GAME_DURATION_MILLIS
     return ENEMIES_PER_MINUTE_START + progress * difference;
     
 

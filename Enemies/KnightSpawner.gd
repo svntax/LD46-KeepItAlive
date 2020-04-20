@@ -31,7 +31,7 @@ func get_spawn_time() -> float:
     
 func get_enemies_per_minute_now() -> float:
     var difference = ENEMIES_PER_MINUTE_END - ENEMIES_PER_MINUTE_START
-    var progress = (OS.get_ticks_msec() - start_time) / GAME_DURATION_MILLIS
+    var progress = (OS.get_ticks_msec() - start_time) / Globals.GAME_DURATION_MILLIS
     return ENEMIES_PER_MINUTE_START + progress * difference;
 
 func _spawn_timer_finished():

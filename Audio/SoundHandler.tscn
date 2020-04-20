@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Audio/SoundHandler.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Player_Swings_Sword.wav" type="AudioStream" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Audio/Boss_Slam.wav" type="AudioStream" id=4]
 [ext_resource path="res://Audio/Rumble.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Mage_Death.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/gameplay_song_1.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Mage_Projectile_Hit.wav" type="AudioStream" id=8]
 
 [node name="SoundHandler" type="Node"]
 script = ExtResource( 1 )
@@ -27,4 +29,11 @@ volume_db = -8.0
 
 [node name="MageDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+volume_db = -8.0
+
+[node name="GameSong1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="MageProjectileHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 volume_db = -8.0

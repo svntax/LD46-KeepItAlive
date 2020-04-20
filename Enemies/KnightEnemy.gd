@@ -119,6 +119,7 @@ func sword_slash() -> void:
 func damage() -> void:
     health -= 1
     if health <= 0:
+        SoundHandler.mageDeath.play()
         queue_free()
 
 func _can_move() -> bool:
