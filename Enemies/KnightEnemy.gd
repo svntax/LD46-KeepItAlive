@@ -115,10 +115,10 @@ func get_coords_of_target_adversary() -> Vector2:
 func sword_slash() -> void:
     for body in sword_hitbox.get_overlapping_bodies():
         if body.is_in_group("Boss"):
-            body.damage()
+            body.damage(1)
 
-func damage() -> void:
-    health -= 1
+func damage(amount) -> void:
+    health -= amount
     if health <= 0:
         SoundHandler.mageDeath.play()
         queue_free()
@@ -171,7 +171,7 @@ func _on_body_entered(body):
         pass
     if body.is_in_group("Bullets"):
         # Damage the enemy and remove the bullet
-        damage()
+        damage(1)
         stun()
         var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
         knockback(push.x, push.y)

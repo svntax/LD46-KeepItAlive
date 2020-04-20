@@ -28,6 +28,7 @@ onready var SPEED = 500
 onready var MOVEMENT_DURATION = 0.2
 onready var SMASH_RANGE = 50
 onready var SMASH_INTERVAL = 2
+onready var SMASH_DAMAGE = 1
 
 onready var can_attack = true
 
@@ -39,7 +40,7 @@ func _ready():
     
     movement_interval_timer.connect("timeout", self,  "_begin_movement")
     movement_interval_timer.one_shot = false
-    movement_interval_timer.wait_time = 5
+    movement_interval_timer.wait_time = 4
     movement_interval_timer.start()
     
     movement_duration_timer.connect("timeout", self, "_end_movement")
@@ -112,12 +113,12 @@ func update_health_bar() -> void:
     var value = floor(100.0 * health / MAX_HEALTH)
     health_bar.set_value(value)
 
-func damage() -> void:
+func damage(amount) -> void:
     if health <= 0:
         pass
     else:
         if !effects_player.is_playing():
-            health -= 1
+            health -= amount
             update_health_bar()
             if health <= 0:
                 # Do NOT queue_free() the boss, do a custom death handling
@@ -139,7 +140,7 @@ func spawn_shockwave() -> void:
     # Also damage all enemies within hitbox
     for body in hitbox.get_overlapping_bodies():
         if body.is_in_group("Enemies"):
-            body.damage()
+            body.damage(SMASH_DAMAGE)
             body.stun()
 
 func _physics_process(delta):
@@ -177,7 +178,7 @@ func _on_body_entered(body):
     if body.is_in_group("Bullets"):
         # Damage and knockback only from non-reflected bullets
         if !body.is_reflected:
-            damage()
+            damage(1)
             SoundHandler.bulletHit.play()
             var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
             knockback(push.x, push.y)

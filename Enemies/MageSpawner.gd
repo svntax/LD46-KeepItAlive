@@ -11,7 +11,7 @@ onready var start_time = OS.get_ticks_msec()
 onready var game_root = get_tree().get_root().get_node("Gameplay")
 
 onready var ENEMIES_PER_MINUTE_START = 2;
-onready var ENEMIES_PER_MINUTE_END = 8;
+onready var ENEMIES_PER_MINUTE_END = 4;
 
 onready var TOO_CLOSE_RANGE = 100
 

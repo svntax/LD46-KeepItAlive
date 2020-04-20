@@ -11,8 +11,8 @@ onready var game_root = get_tree().get_root().get_node("Gameplay")
 
 onready var GAME_DURATION_MILLIS = 8 * 60 * 1000 # 8 minutes
 
-onready var ENEMIES_PER_MINUTE_START = 3;
-onready var ENEMIES_PER_MINUTE_END = 6;
+onready var ENEMIES_PER_MINUTE_START = 2;
+onready var ENEMIES_PER_MINUTE_END = 4;
 
 func _ready():
     spawn_timer.connect("timeout", self, "_spawn_timer_finished")

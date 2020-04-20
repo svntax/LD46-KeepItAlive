@@ -8,6 +8,7 @@ onready var current_state = State.NORMAL
 
 onready var velocity : Vector2 = Vector2()
 onready var direction = 1 # 1 = right, -1 = left
+onready var PLAYER_DAMAGE = 0.35
 
 onready var sword_angle = 0
 
@@ -98,3 +99,4 @@ func _on_Sword_body_entered(body):
         body.reflect_back(push)
     elif body.is_in_group("Enemies"):
         body.stun()
+        body.damage(PLAYER_DAMAGE)
