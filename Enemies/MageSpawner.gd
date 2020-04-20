@@ -1,6 +1,6 @@
 extends Node2D
 
-var mage_enemy_scene = load("res://Enemies/BasicEnemy.tscn")
+var mage_enemy_scene = load("res://Enemies/MageEnemy.tscn")
 
 onready var spawn_pos = $SpawnPos
 onready var spawn_timer = $SpawnTimer

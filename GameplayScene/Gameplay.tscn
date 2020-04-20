@@ -7,7 +7,7 @@
 [ext_resource path="res://Enemies/KnightEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Allies/Boss.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/MageSpawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Enemies/BasicEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemies/MageEnemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 16 )
