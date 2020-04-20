@@ -142,7 +142,7 @@ func spawn_shockwave() -> void:
     # Also damage all enemies within hitbox
     for body in hitbox.get_overlapping_bodies():
         if body.is_in_group("Enemies"):
-            body.damage(SMASH_DAMAGE)
+            body.damage(SMASH_DAMAGE, self)
             body.stun()
 
 func _physics_process(delta):

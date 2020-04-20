@@ -5,6 +5,7 @@ onready var camera = $Camera2D
 onready var game_over_menu = $UILayer/GameOverMenu
 onready var game_win_menu = $UILayer/GameWinMenu
 onready var cutscene_player = $CutscenePlayer
+onready var blood_layer = $BloodLayer
 
 onready var screenshake_active = false
 
@@ -29,6 +30,9 @@ func game_over() -> void:
 # Used to add entities that need to be y-sorted, like enemies
 func add_entity(entity) -> void:
     ysort_group.add_child(entity)
+
+func add_blood_splatter(entity) -> void:
+    blood_layer.add_child(entity)
 
 func shake_camera(duration, magnitude, frequency):
     if game_state != State.NORMAL:

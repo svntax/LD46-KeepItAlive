@@ -3,6 +3,7 @@ extends KinematicBody2D
 const BULLET_KNOCKBACK = 64
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
+var blood_scene = load("res://Enemies/BloodSplatter.tscn")
 
 enum State {NORMAL, STUNNED}
 onready var current_state = State.NORMAL
@@ -118,10 +119,23 @@ func sword_slash() -> void:
             body.damage(1)
             SoundHandler.play_sword_hit()
 
-func damage(amount) -> void:
+func blood_splatter(source) -> void:
+    var blood = blood_scene.instance()
+    blood.global_position = global_position
+    game_root.add_blood_splatter(blood)
+    if source == null:
+        blood.splat_effect(0)
+    else:
+        if source.global_position.x > global_position.x:
+            blood.splat_effect(-1)
+        else:
+            blood.splat_effect(1)
+
+func damage(amount, source = null) -> void:
     health -= amount
     if health <= 0:
         SoundHandler.mageDeath.play()
+        blood_splatter(source)
         queue_free()
 
 func _can_move() -> bool:
@@ -171,8 +185,8 @@ func _on_body_entered(body):
     if body.is_in_group("Players"):
         pass
     if body.is_in_group("Bullets"):
-        # Damage the enemy and remove the bullet
-        damage(1)
+        # Damage the enemy
+        damage(1, body)
         stun()
         var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
         knockback(push.x, push.y)
