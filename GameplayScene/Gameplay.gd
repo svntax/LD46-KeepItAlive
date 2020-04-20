@@ -32,6 +32,7 @@ func add_entity(entity) -> void:
 
 func shake_camera(duration, magnitude, frequency):
     if game_state != State.NORMAL:
+        camera.offset = Vector2()
         return
     
     if not screenshake_active:

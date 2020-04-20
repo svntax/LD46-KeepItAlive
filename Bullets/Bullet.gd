@@ -3,7 +3,9 @@ extends KinematicBody2D
 onready var velocity : Vector2 = Vector2()
 onready var reflected_velocity : Vector2 = Vector2()
 onready var is_reflected = false
-onready var max_reflect_count = 5
+onready var max_reflect_count = 6
+
+onready var game_root = get_tree().get_root().get_node("Gameplay")
 
 onready var animation_player = $AnimationPlayer
 
@@ -15,7 +17,8 @@ func reflect_back(vec : Vector2) -> void:
     set_velocity(vec.x, vec.y)
     animation_player.play("reflect")
     is_reflected = true
-    max_reflect_count += 1
+    # Reflecting the bullet makes it last longer
+    max_reflect_count += 2
     SoundHandler.reflectSound.play()
 
 func set_velocity(x : float, y : float) -> void:
@@ -26,6 +29,7 @@ func _physics_process(delta):
     var collision = move_and_collide(velocity + reflected_velocity)
     if collision:
         velocity = velocity.bounce(collision.normal)
+        game_root.shake_camera(0.2, 1, 30)
         max_reflect_count -= 1
         if max_reflect_count <= 0:
             queue_free()

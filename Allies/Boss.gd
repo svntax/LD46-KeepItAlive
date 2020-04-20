@@ -185,7 +185,7 @@ func _on_body_entered(body):
             SoundHandler.play_bullet_hit()
             var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
             knockback(push.x, push.y)
-        body.queue_free()
+            body.queue_free()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
     if anim_name == "smash_attack":

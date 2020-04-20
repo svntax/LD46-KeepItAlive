@@ -88,7 +88,8 @@ func _on_StunnedTimer_timeout():
 func _on_Hitbox_body_entered(body):
     if body.is_in_group("Bullets"):
         stun()
-        body.queue_free()
+        if not body.is_reflected:
+            body.queue_free()
 
 func _on_SwordPlayer_animation_finished(anim_name):
     if anim_name == "slash":
@@ -98,6 +99,7 @@ func _on_Sword_body_entered(body):
     if body.is_in_group("Bullets"):
         var push = Vector2(-1, 0).rotated(sword_angle) * REFLECT_SPEED
         body.reflect_back(push)
+        game_root.shake_camera(0.2, 2, 30)
     elif body.is_in_group("Enemies"):
         body.stun()
         body.damage(PLAYER_DAMAGE)
