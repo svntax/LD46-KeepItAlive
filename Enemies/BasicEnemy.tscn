@@ -6,10 +6,10 @@
 [ext_resource path="res://Bullets/bullet_grow.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 8 )
+extents = Vector2( 7, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 12 )
+extents = Vector2( 10, 12 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
@@ -216,13 +216,13 @@ texture = ExtResource( 3 )
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 8 )
+position = Vector2( 0, 8 )
 shape = SubResource( 1 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( -1, 6 )
+position = Vector2( 0, 6 )
 collision_layer = 4
 collision_mask = 6
 
