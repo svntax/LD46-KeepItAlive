@@ -67,6 +67,11 @@ func change_state(new_state):
             stunned_timer.start()
             has_stun_immunity = true
             stun_immunity_timer.start()
+            if animation_player.is_playing() and animation_player.current_animation == "attack":
+                # Cancel the attack
+                shoot_timer.start()
+                animation_player.stop()
+                animation_player.play("rest")
 
 func stun() -> void:
     if current_state != State.STUNNED and !has_stun_immunity:
@@ -109,14 +114,17 @@ func damage() -> void:
     health -= 1
     if health <= 0:
         queue_free()
-        
+
+func _can_move() -> bool:
+    return current_state != State.STUNNED
 
 func _physics_process(delta):
     # Knockback velocity is reduced
     if knockback_velocity.length() > 0:
         knockback_velocity = knockback_velocity.linear_interpolate(Vector2.ZERO, 0.1)
     
-    move_and_slide(velocity + knockback_velocity)
+    if _can_move():
+        move_and_slide(velocity + knockback_velocity)
     
     # Face the boss
     if boss != null and is_instance_valid(boss):

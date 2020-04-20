@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Enemies/KnightEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Allies/Boss.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/MageSpawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/BasicEnemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 16 )
@@ -198,3 +199,6 @@ position = Vector2( 50.3561, 167.866 )
 
 [node name="Boss" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 200, 142 )
+
+[node name="Mage" parent="YSort" instance=ExtResource( 8 )]
+position = Vector2( 332, 224 )
