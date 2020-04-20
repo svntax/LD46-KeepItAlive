@@ -12,6 +12,20 @@ extents = Vector2( 7, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 12 )
 
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 40.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 32.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 40.0
+scale = 4.0
+scale_random = 0.8
+
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
 length = 2.5
@@ -153,20 +167,6 @@ tracks/3/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="ParticlesMaterial" id=5]
-emission_shape = 1
-emission_sphere_radius = 4.0
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 40.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 32.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-damping = 40.0
-scale = 4.0
-scale_random = 0.8
-
 [sub_resource type="Animation" id=6]
 resource_name = "rest"
 length = 0.1
@@ -207,6 +207,7 @@ collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="Body" type="Node2D" parent="."]
+position = Vector2( 0, -11 )
 
 [node name="Shadow" type="Sprite" parent="Body"]
 modulate = Color( 1, 1, 1, 0.501961 )
@@ -223,18 +224,31 @@ texture = ExtResource( 3 )
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, -3 )
 shape = SubResource( 1 )
 
-[node name="ShootTimer" type="Timer" parent="."]
-
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( 0, 6 )
+position = Vector2( 0, -5 )
 collision_layer = 4
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 2 )
+
+[node name="BulletSprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -18 )
+texture = ExtResource( 4 )
+hframes = 3
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, -29 )
+emitting = false
+amount = 6
+local_coords = false
+process_material = SubResource( 5 )
+
+[node name="ShootTimer" type="Timer" parent="."]
 
 [node name="MovementIntervalTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -248,19 +262,6 @@ one_shot = true
 autoplay = "rest"
 anims/attack = SubResource( 3 )
 anims/rest = SubResource( 4 )
-
-[node name="BulletSprite" type="Sprite" parent="."]
-visible = false
-position = Vector2( 0, -18 )
-texture = ExtResource( 4 )
-hframes = 3
-
-[node name="Particles2D" type="Particles2D" parent="."]
-position = Vector2( 0, -18 )
-emitting = false
-amount = 6
-local_coords = false
-process_material = SubResource( 5 )
 
 [node name="EffectsPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rest"

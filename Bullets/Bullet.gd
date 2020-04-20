@@ -3,7 +3,7 @@ extends KinematicBody2D
 onready var velocity : Vector2 = Vector2()
 onready var reflected_velocity : Vector2 = Vector2()
 onready var is_reflected = false
-onready var max_reflect_count = 4
+onready var max_reflect_count = 5
 
 onready var animation_player = $AnimationPlayer
 

@@ -100,10 +100,7 @@ texture = ExtResource( 3 )
 hframes = 3
 
 [node name="SpawnPos" type="Position2D" parent="."]
-position = Vector2( 1, -14 )
-__meta__ = {
-"_edit_lock_": true
-}
+position = Vector2( 0, -3 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
 

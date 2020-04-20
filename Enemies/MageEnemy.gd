@@ -14,7 +14,7 @@ onready var boss = get_tree().get_nodes_in_group("Boss")[0]
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-onready var health = 2
+onready var health = 1
 onready var has_stun_immunity = false
 
 onready var shoot_timer = $ShootTimer

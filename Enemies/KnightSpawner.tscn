@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 
 [node name="SpawnPos" type="Position2D" parent="."]
-position = Vector2( 0, -6 )
+position = Vector2( 0, 4 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
