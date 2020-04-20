@@ -7,7 +7,7 @@
 [ext_resource path="res://shadow_small.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 9 )
+extents = Vector2( 6, 8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "rest"
@@ -171,7 +171,7 @@ scale = Vector2( 1.5, 1 )
 texture = ExtResource( 5 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 9 )
+position = Vector2( 0, 8 )
 shape = SubResource( 1 )
 
 [node name="StunnedTimer" type="Timer" parent="."]
