@@ -9,6 +9,7 @@ onready var current_state = State.NORMAL
 
 onready var direction = 1 # 1 = right, -1 = left
 onready var boss = get_tree().get_nodes_in_group("Boss")[0]
+onready var game_root = get_tree().get_root().get_node("Gameplay")
 
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
@@ -142,10 +143,16 @@ func _physics_process(delta):
         body_root.scale.x = direction
 
 func _shoot_cooldown_finished():
-    # TODO: temporary
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
+    # TODO: need better attacking AI
     animation_player.play("attack")
     
 func _begin_movement():
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
     velocity = get_new_movement_direction() * SPEED
     movement_duration_timer.wait_time = MOVEMENT_DURATION
     movement_duration_timer.start()
@@ -161,7 +168,6 @@ func _stun_immunity_finished():
 
 func _on_body_entered(body):
     if body.is_in_group("Players"):
-        # TODO: what should happen if player touches an enemy
         pass
     if body.is_in_group("Bullets"):
         # Damage the enemy and remove the bullet

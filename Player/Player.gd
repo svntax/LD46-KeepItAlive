@@ -45,7 +45,7 @@ func reset_hilt():
 func _physics_process(delta):
     update_sword()
     if Input.is_action_just_pressed("SLASH"):
-        if !sword_player.is_playing():
+        if !sword_player.is_playing() and current_state != State.STUNNED:
             sword_player.play("slash")
             SoundHandler.playerSwingsSword.play()
     

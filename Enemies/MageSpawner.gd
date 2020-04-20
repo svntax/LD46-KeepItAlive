@@ -22,6 +22,9 @@ func _ready():
     spawn_timer.start()
 
 func spawn_mage_enemy() -> void:
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
     var mage = mage_enemy_scene.instance()
     mage.global_position = spawn_pos.global_position
     game_root.add_entity(mage)
@@ -45,6 +48,9 @@ func get_enemies_per_minute_now() -> float:
     
 
 func _spawn_timer_finished():
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
     if are_players_too_close():
         spawn_timer.wait_time = get_spawn_time()
         spawn_timer.start()

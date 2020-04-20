@@ -21,6 +21,9 @@ func _ready():
     spawn_timer.start()
 
 func spawn_knight_enemy() -> void:
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
     var knight = knight_enemy_scene.instance()
     knight.global_position = spawn_pos.global_position
     game_root.add_entity(knight)

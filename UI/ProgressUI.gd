@@ -18,7 +18,7 @@ func update_progress_bar() -> void:
     if progress_bar.get_value() >= 100:
         progress_timer.stop()
         # Game win
-        print("game win")
+        game_root.win_game()
 
 func _on_ProgressTimer_timeout():
     time_elapsed += 1

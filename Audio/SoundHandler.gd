@@ -8,3 +8,4 @@ onready var mageDeath = $MageDeath
 onready var bulletHit = $MageProjectileHit
 
 onready var gameplaySong1 = $GameSong1
+onready var mainMenuSong = $MainMenuSong

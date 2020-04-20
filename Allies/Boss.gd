@@ -47,13 +47,13 @@ func _ready():
     hitbox.connect("body_entered", self, "_on_body_entered")
 
 # Shoots a bullet towards the player
-func shoot_bullet() -> void:
-    var bullet = bullet_scene.instance()
-    bullet.global_position = global_position
-    get_tree().get_root().add_child(bullet)
-    var player = get_tree().get_nodes_in_group("Players")[0]
-    var bullet_vel = global_position.direction_to(player.global_position) * 3
-    bullet.set_velocity(bullet_vel.x, bullet_vel.y)
+#func shoot_bullet() -> void:
+#    var bullet = bullet_scene.instance()
+#    bullet.global_position = global_position
+#    get_tree().get_root().add_child(bullet)
+#    var player = get_tree().get_nodes_in_group("Players")[0]
+#    var bullet_vel = global_position.direction_to(player.global_position) * 3
+#    bullet.set_velocity(bullet_vel.x, bullet_vel.y)
 
 func knockback(x : float, y : float) -> void:
     knockback_velocity.x = x
@@ -90,7 +90,6 @@ func get_coords_of_closest_adversary() -> Vector2:
     return Vector2(200, 160)
 
 func kill() -> void:
-    # TODO: game over
     hide()
     is_dead = true
     # Disable collisions
@@ -98,6 +97,7 @@ func kill() -> void:
     self.collision_mask = 0
     hitbox.monitoring = false
     hitbox.monitorable = false
+    game_root.game_over()
 
 func damage() -> void:
     if health <= 0:
@@ -138,10 +138,7 @@ func _physics_process(delta):
     move_and_slide(velocity + knockback_velocity)
 
 func _shoot_cooldown_finished():
-    #shoot_bullet()
-    # Disabled shooting for now
     can_attack = true
-    
     
 func _begin_movement():
     velocity = get_new_movement_direction() * SPEED
@@ -153,7 +150,6 @@ func _end_movement():
 
 func _on_body_entered(body):
     if body.is_in_group("Players"):
-        # TODO: what should happen if player touches the boss
         pass
     if body.is_in_group("Bullets"):
         # Damage and knockback only from non-reflected bullets

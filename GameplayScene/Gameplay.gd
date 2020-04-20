@@ -5,8 +5,17 @@ onready var camera = $Camera2D
 
 onready var screenshake_active = false
 
+enum State {NORMAL, GAME_OVER, WIN}
+onready var game_state = State.NORMAL
+
 func _ready():
     SoundHandler.gameplaySong1.play()
+
+func win_game() -> void:
+    game_state = State.WIN
+
+func game_over() -> void:
+    game_state = State.GAME_OVER
 
 # Used to add entities that need to be y-sorted, like enemies
 func add_entity(entity) -> void:
