@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Enemies/MageEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/ProgressUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/GameOverMenu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://UI/GameWinMenu.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 16 )
@@ -247,3 +248,9 @@ margin_left = 200.0
 margin_top = 160.0
 margin_right = 200.0
 margin_bottom = 160.0
+
+[node name="GameWinMenu" parent="UILayer" instance=ExtResource( 11 )]
+margin_left = 200.0
+margin_top = 160.324
+margin_right = -200.0
+margin_bottom = -159.676

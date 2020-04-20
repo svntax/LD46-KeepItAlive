@@ -3,6 +3,7 @@ extends Node2D
 onready var ysort_group = $YSort
 onready var camera = $Camera2D
 onready var game_over_menu = $UILayer/GameOverMenu
+onready var game_win_menu = $UILayer/GameWinMenu
 
 onready var screenshake_active = false
 
@@ -16,6 +17,7 @@ func win_game() -> void:
     game_state = State.WIN
     SoundHandler.gameplaySong1.stop()
     SoundHandler.victorySound.play()
+    game_win_menu.show()
 
 func game_over() -> void:
     game_state = State.GAME_OVER
