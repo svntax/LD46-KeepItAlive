@@ -52,7 +52,7 @@ func _ready():
     stunned_timer.connect("timeout", self, "_stunned_timer_finished")
     
     stun_immunity_timer.connect("timeout", self, "_stun_immunity_finished")
-    stun_immunity_timer.wait_time = 2
+    stun_immunity_timer.wait_time = 1.5
     
     hitbox.connect("body_entered", self, "_on_body_entered")
 

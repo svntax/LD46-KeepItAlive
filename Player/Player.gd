@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const WALK_SPEED = 80
+const WALK_SPEED = 100
 const REFLECT_SPEED = 4
 
 enum State {NORMAL, STUNNED}

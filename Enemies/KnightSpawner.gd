@@ -12,7 +12,7 @@ onready var game_root = get_tree().get_root().get_node("Gameplay")
 onready var GAME_DURATION_MILLIS = 8 * 60 * 1000 # 8 minutes
 
 onready var ENEMIES_PER_MINUTE_START = 3;
-onready var ENEMIES_PER_MINUTE_END = 8;
+onready var ENEMIES_PER_MINUTE_END = 6;
 
 func _ready():
     spawn_timer.connect("timeout", self, "_spawn_timer_finished")
@@ -30,7 +30,9 @@ func spawn_knight_enemy() -> void:
     
 func get_spawn_time() -> float:
     var seconds = 60 / get_enemies_per_minute_now()
-    return rand_range(seconds * 0.75, seconds * 1.25)
+    var spawn_time = rand_range(seconds * 0.01, seconds * 2)
+    print("Selecting knight spawn time of ", spawn_time)
+    return spawn_time
     
 func get_enemies_per_minute_now() -> float:
     var difference = ENEMIES_PER_MINUTE_END - ENEMIES_PER_MINUTE_START
