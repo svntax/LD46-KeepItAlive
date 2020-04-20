@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Enemies/MageSpawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemies/MageEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/ProgressUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/GameOverMenu.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 16 )
@@ -45,12 +46,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="UI" type="Node2D" parent="."]
+[node name="TopUI" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ProgressUI" parent="UI" instance=ExtResource( 9 )]
+[node name="ProgressUI" parent="TopUI" instance=ExtResource( 9 )]
 margin_left = 72.0
 margin_top = 31.0
 margin_right = 72.0
@@ -228,12 +229,21 @@ __meta__ = {
 anchor_mode = 0
 current = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="CenterContainer" type="CenterContainer" parent="UILayer"]
 margin_right = 400.0
-margin_bottom = 64.0
+margin_bottom = 320.0
 rect_min_size = Vector2( 400, 64 )
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GameOverMenu" parent="UILayer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 200.0
+margin_top = 160.0
+margin_right = 200.0
+margin_bottom = 160.0

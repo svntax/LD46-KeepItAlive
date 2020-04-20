@@ -101,15 +101,21 @@ func kill() -> void:
 
 func damage() -> void:
     if health <= 0:
-        # Do NOT queue_free() the boss, do a custom death handling
-        kill()
+        pass
     else:
         if !effects_player.is_playing():
             health -= 1
-            # The length of the damaged animation is the immunity time
-            effects_player.play("damaged")
+            if health <= 0:
+                # Do NOT queue_free() the boss, do a custom death handling
+                kill()
+            else:
+                # The length of the damaged animation is the immunity time
+                effects_player.play("damaged")
 
 func spawn_shockwave() -> void:
+    if game_root.game_state != game_root.State.NORMAL:
+        return
+    
     var shockwave = shockwave_scene.instance()
     shockwave.global_position = shockwave_spawn_pos.global_position
     get_tree().get_root().add_child(shockwave)
@@ -134,8 +140,11 @@ func _physics_process(delta):
         shoot_timer.start()
         animation_player.play("smash_attack")
         
-    
-    move_and_slide(velocity + knockback_velocity)
+    if _can_move():
+        move_and_slide(velocity + knockback_velocity)
+
+func _can_move():
+    return game_root.game_state == game_root.State.NORMAL
 
 func _shoot_cooldown_finished():
     can_attack = true

@@ -2,6 +2,7 @@ extends Node2D
 
 onready var ysort_group = $YSort
 onready var camera = $Camera2D
+onready var game_over_menu = $UILayer/GameOverMenu
 
 onready var screenshake_active = false
 
@@ -16,18 +17,23 @@ func win_game() -> void:
 
 func game_over() -> void:
     game_state = State.GAME_OVER
+    SoundHandler.gameplaySong1.stop()
+    game_over_menu.show()
 
 # Used to add entities that need to be y-sorted, like enemies
 func add_entity(entity) -> void:
     ysort_group.add_child(entity)
 
 func shake_camera(duration, magnitude, frequency):
+    if game_state != State.NORMAL:
+        return
+    
     if not screenshake_active:
         screenshake_active = true
         var start_time = OS.get_ticks_msec()
         var _time = start_time
         
-        while _time < start_time + (duration * 1000):
+        while _time < start_time + (duration * 1000) and game_state == State.NORMAL:
             # Update _time to current ticks
             _time = OS.get_ticks_msec()
             

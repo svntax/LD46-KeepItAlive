@@ -11,6 +11,8 @@ onready var direction = 1 # 1 = right, -1 = left
 
 onready var sword_angle = 0
 
+onready var game_root = get_tree().get_root().get_node("Gameplay")
+
 onready var animation_player = $AnimationPlayer
 onready var sword_player = $SwordPlayer
 onready var stunned_timer = $StunnedTimer
@@ -45,7 +47,7 @@ func reset_hilt():
 func _physics_process(delta):
     update_sword()
     if Input.is_action_just_pressed("SLASH"):
-        if !sword_player.is_playing() and current_state != State.STUNNED:
+        if _can_attack():
             sword_player.play("slash")
             SoundHandler.playerSwingsSword.play()
     
@@ -71,8 +73,12 @@ func _physics_process(delta):
         move_and_slide(velocity)
 
 func _can_move() -> bool:
-    return current_state != State.STUNNED \
-        and !sword_player.is_playing()
+    return current_state != State.STUNNED and !sword_player.is_playing() \
+        and game_root.game_state == game_root.State.NORMAL
+
+func _can_attack() -> bool:
+    return !sword_player.is_playing() and current_state != State.STUNNED \
+        and game_root.game_state == game_root.State.NORMAL
 
 func _on_StunnedTimer_timeout():
     change_state(State.NORMAL)
