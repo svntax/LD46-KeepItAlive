@@ -45,6 +45,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="UI" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ProgressUI" parent="UI" instance=ExtResource( 9 )]
+margin_left = 72.0
+margin_top = 31.0
+margin_right = 72.0
+margin_bottom = 31.0
+
 [node name="InvisibleWalls" type="Node2D" parent="."]
 
 [node name="PlayerWallBottom" type="StaticBody2D" parent="InvisibleWalls"]
@@ -216,18 +227,6 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
-
-[node name="UI" type="Node2D" parent="."]
-z_index = 30
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ProgressUI" parent="UI" instance=ExtResource( 9 )]
-margin_left = 72.0
-margin_top = 31.0
-margin_right = 72.0
-margin_bottom = 31.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
