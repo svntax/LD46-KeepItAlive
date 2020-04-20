@@ -179,7 +179,7 @@ func _on_body_entered(body):
         # Damage and knockback only from non-reflected bullets
         if !body.is_reflected:
             damage(1)
-            SoundHandler.bulletHit.play()
+            SoundHandler.play_bullet_hit()
             var push = body.global_position.direction_to(global_position).normalized() * BULLET_KNOCKBACK
             knockback(push.x, push.y)
         body.queue_free()

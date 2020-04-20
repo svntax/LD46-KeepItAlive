@@ -116,6 +116,7 @@ func sword_slash() -> void:
     for body in sword_hitbox.get_overlapping_bodies():
         if body.is_in_group("Boss"):
             body.damage(1)
+            SoundHandler.play_sword_hit()
 
 func damage(amount) -> void:
     health -= amount
