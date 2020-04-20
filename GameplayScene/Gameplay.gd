@@ -5,6 +5,8 @@ onready var camera = $Camera2D
 
 onready var screenshake_active = false
 
+onready var GAME_DURATION_MILLIS = 8 * 60 * 1000 # 8 minutes
+
 # Used to add entities that need to be y-sorted, like enemies
 func add_entity(entity) -> void:
     ysort_group.add_child(entity)
