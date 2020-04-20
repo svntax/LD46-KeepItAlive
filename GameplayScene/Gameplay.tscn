@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -41,6 +41,46 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "game_win"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UILayer/GameWinMenu:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 200, -88 ), Vector2( 200, -88 ), Vector2( 200, 160 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UILayer/GameWinMenu/GameWinText:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UILayer/GameWinMenu/ReturnButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [node name="Gameplay" type="Node2D"]
@@ -265,11 +305,16 @@ margin_right = 200.0
 margin_bottom = 160.0
 
 [node name="GameWinMenu" parent="UILayer" instance=ExtResource( 11 )]
-visible = false
 margin_left = 200.0
-margin_top = 160.324
+margin_top = -88.0
 margin_right = -200.0
-margin_bottom = -159.676
+margin_bottom = -408.0
+
+[node name="GameWinText" parent="UILayer/GameWinMenu" index="4"]
+visible = false
+
+[node name="ReturnButton" parent="UILayer/GameWinMenu" index="5"]
+visible = false
 
 [node name="FadeRect" type="ColorRect" parent="UILayer"]
 margin_right = 400.0
@@ -282,4 +327,7 @@ __meta__ = {
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
 anims/fade_in = SubResource( 7 )
+anims/game_win = SubResource( 8 )
 [connection signal="animation_finished" from="CutscenePlayer" to="." method="_on_CutscenePlayer_animation_finished"]
+
+[editable path="UILayer/GameWinMenu"]

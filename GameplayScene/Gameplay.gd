@@ -18,7 +18,16 @@ func _ready():
 func win_game() -> void:
     game_state = State.WIN
     SoundHandler.gameplaySong1.stop()
+    
+    # Kill all enemies
+    var boss = get_tree().get_nodes_in_group("Boss")[0]
+    for enemy in get_tree().get_nodes_in_group("Enemies"):
+        enemy.damage(99, boss)
+    
+    yield(get_tree().create_timer(1.5), "timeout")
     SoundHandler.victorySound.play()
+    yield(get_tree().create_timer(3.8), "timeout")
+    cutscene_player.play("game_win")
     game_win_menu.show()
 
 func game_over() -> void:
@@ -60,5 +69,8 @@ func shake_camera(duration, magnitude, frequency):
         screenshake_active = false
 
 func _on_CutscenePlayer_animation_finished(anim_name):
-    SoundHandler.gameplaySong1.play()
-    game_state = State.NORMAL
+    if anim_name == "fade_in":
+        SoundHandler.gameplaySong1.play()
+        game_state = State.NORMAL
+    elif anim_name == "game_win":
+        pass
