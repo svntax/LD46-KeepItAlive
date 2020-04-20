@@ -10,7 +10,7 @@ onready var game_root = get_tree().get_root().get_node("Gameplay")
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-const MAX_HEALTH = 10
+const MAX_HEALTH = 20
 onready var health = MAX_HEALTH
 onready var is_dead = false
 
@@ -85,12 +85,18 @@ func get_distance_from_nearest_adversary() -> float:
 func get_coords_of_closest_adversary() -> Vector2:
     # Todo also have the monster included in this consideration
     var enemies = get_tree().get_nodes_in_group("Enemies")
-    if !enemies.empty(): # Need this check in case all enemies are dead at any moment
-        var enemy = get_tree().get_nodes_in_group("Enemies")[0]
-        return enemy.global_position
+    if enemies.empty(): # Need this check in case all enemies are dead at any moment
+        return Vector2(200, 160)
+    var closestPosition;
+    var closest = 999999;
+    for i in range(0, enemies.size()):
+        if enemies[i].global_position.distance_to(global_position) < closest:
+            closest = enemies[i].global_position.distance_to(global_position)
+            closestPosition = enemies[i].global_position
+        return closestPosition
     
     # Default to middle of level
-    return Vector2(200, 160)
+
 
 func kill() -> void:
     hide()
