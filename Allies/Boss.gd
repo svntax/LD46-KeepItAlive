@@ -24,6 +24,10 @@ onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
 onready var AGGRO_RANGE = 300
 onready var SPEED = 500
 onready var MOVEMENT_DURATION = 0.2
+onready var SMASH_RANGE = 50
+onready var SMASH_INTERVAL = 2
+
+onready var can_attack = true
 
 func _ready():
     shoot_timer.connect("timeout", self, "_shoot_cooldown_finished")
@@ -63,15 +67,18 @@ func get_new_movement_direction() -> Vector2:
     if distance < AGGRO_RANGE:
         go_towards_adversary = 1
     var direction = go_towards_adversary * global_position.direction_to(get_coords_of_closest_adversary())
-    var random_offset = Vector2(randf(), randf()).normalized();
-    return (direction + random_offset * random_offset_factor).normalized();
+    var random_offset = Vector2(randf(), randf()).normalized()
+    return (direction + random_offset * random_offset_factor).normalized()
 
 #func get_vector_to_center_screen() -> Vector2:
 #    var viewport_rect = get_viewport_rect()
 #    print("ViewPort Position", viewport_rect.position)
 #    print("ViewPort Size", viewport_rect.size)
 #    return global_position
-    
+
+func get_distance_from_nearest_adversary() -> float:
+    return global_position.distance_to(get_coords_of_closest_adversary())    
+
 func get_coords_of_closest_adversary() -> Vector2:
     # Todo also have the monster included in this consideration
     var enemies = get_tree().get_nodes_in_group("Enemies")
@@ -119,13 +126,22 @@ func _physics_process(delta):
     # Knockback velocity is reduced
     if knockback_velocity.length() > 0:
         knockback_velocity = knockback_velocity.linear_interpolate(Vector2.ZERO, 0.1)
+        
+    
+    if can_attack and get_distance_from_nearest_adversary() < SMASH_RANGE:
+        can_attack = false
+        shoot_timer.wait_time = SMASH_INTERVAL
+        shoot_timer.start()
+        animation_player.play("smash_attack")
+        
     
     move_and_slide(velocity + knockback_velocity)
 
 func _shoot_cooldown_finished():
     #shoot_bullet()
     # Disabled shooting for now
-    animation_player.play("smash_attack")
+    can_attack = true
+    
     
 func _begin_movement():
     velocity = get_new_movement_direction() * SPEED
