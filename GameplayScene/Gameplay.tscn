@@ -201,7 +201,7 @@ position = Vector2( 50.3561, 180 )
 position = Vector2( 200, 142 )
 
 [node name="Mage" parent="YSort" instance=ExtResource( 8 )]
-position = Vector2( 332, 224 )
+position = Vector2( 304, 245 )
 
 [node name="WallsTilemap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

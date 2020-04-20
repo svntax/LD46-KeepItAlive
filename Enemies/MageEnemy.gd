@@ -53,6 +53,9 @@ func _ready():
     stun_immunity_timer.wait_time = 2
     
     hitbox.connect("body_entered", self, "_on_body_entered")
+    
+    sprite.hide()
+    animation_player.play("teleport_in")
 
 func change_state(new_state):
     current_state = new_state
