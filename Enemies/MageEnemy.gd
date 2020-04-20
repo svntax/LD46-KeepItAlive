@@ -25,6 +25,10 @@ onready var movement_duration_timer = $MovementDurationTimer
 onready var sprite = $Body/Sprite
 onready var attack_sprite = $Body/AttackSprite
 onready var bullet_sprite = $BulletSprite
+onready var bullet_particles = $Particles2D
+onready var spawn_high_pos = $SpawnHigh
+onready var spawn_low_pos = $SpawnLow
+onready var bullet_area = $SpawnHigh/BulletAreaCheck
 onready var animation_player = $AnimationPlayer
 onready var effects_player = $EffectsPlayer
 onready var stunned_timer = $StunnedTimer
@@ -143,6 +147,17 @@ func _shoot_cooldown_finished():
     if game_root.game_state != game_root.State.NORMAL:
         return
     
+    var top_area_free = true
+    for body in bullet_area.get_overlapping_bodies():
+        if not body.is_in_group("Players"):
+            top_area_free = false
+    
+    if top_area_free:
+        bullet_sprite.global_position = spawn_high_pos.global_position
+    else:
+        bullet_sprite.global_position = spawn_low_pos.global_position
+    bullet_particles.global_position = bullet_sprite.global_position + Vector2(0, -6)
+    
     animation_player.play("attack")
     
 func _begin_movement():
@@ -150,6 +165,14 @@ func _begin_movement():
         return
     
     velocity = get_new_movement_direction() * SPEED
+    
+    if animation_player.current_animation == "attack":
+        # Fix for making sure a mage doesn't move upwards close to a wall while
+        # in the middle of spawning a bullet, which would cause the bullet to spawn
+        # inside the wall and bug out.
+        if velocity.y < 0:
+            velocity.y *= -1
+    
     movement_duration_timer.wait_time = MOVEMENT_DURATION
     movement_duration_timer.start()
     

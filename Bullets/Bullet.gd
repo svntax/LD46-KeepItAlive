@@ -15,6 +15,7 @@ func reflect_back(vec : Vector2) -> void:
     set_velocity(vec.x, vec.y)
     animation_player.play("reflect")
     is_reflected = true
+    max_reflect_count += 1
 
 func set_velocity(x : float, y : float) -> void:
     velocity.x = x
