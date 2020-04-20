@@ -1,6 +1,8 @@
 extends Node2D
 
 onready var animation_player = $AnimationPlayer
+onready var eyes_player = $EyesPlayer
+onready var blink_timer = $BlinkTimer
 
 func _ready():
     SoundHandler.mainMenuSong.play()
@@ -23,3 +25,9 @@ func _on_ExitButton_pressed():
 func _on_AnimationPlayer_animation_finished(anim_name):
     if anim_name == "fade_out":
         get_tree().change_scene("res://GameplayScene/Gameplay.tscn")
+
+func _on_BlinkTimer_timeout():
+    var blink_speed = 2.5
+    eyes_player.play("blink", -1, blink_speed)
+    blink_timer.wait_time = rand_range(1, 6)
+    blink_timer.start()

@@ -191,7 +191,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
         animation_player.play("rest")
 
 func _on_BlinkTimer_timeout():
-    var blink_speed = 2.5#1.0 + rand_range(0.5, 1.5)
+    var blink_speed = 2.5
     eyes_player.play("blink", -1, blink_speed)
     blink_timer.wait_time = rand_range(1, 6)
     blink_timer.start()
