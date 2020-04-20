@@ -19,7 +19,7 @@ func reflect_back(vec : Vector2) -> void:
     is_reflected = true
     # Reflecting the bullet makes it last longer
     max_reflect_count += 2
-    SoundHandler.reflectSound.play()
+    SoundHandler.play_reflect_sound()
 
 func set_velocity(x : float, y : float) -> void:
     velocity.x = x

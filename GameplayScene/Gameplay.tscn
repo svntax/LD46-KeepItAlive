@@ -269,6 +269,7 @@ margin_right = -200.0
 margin_bottom = -159.676
 
 [node name="FadeRect" type="ColorRect" parent="UILayer"]
+visible = false
 margin_right = 400.0
 margin_bottom = 320.0
 mouse_filter = 2
