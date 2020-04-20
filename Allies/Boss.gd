@@ -20,6 +20,8 @@ onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var animation_player = $AnimationPlayer
 onready var effects_player = $EffectsPlayer
+onready var eyes_player = $EyesPlayer
+onready var blink_timer = $BlinkTimer
 onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
 onready var health_bar = $UI/HealthBar
 
@@ -187,3 +189,9 @@ func _on_body_entered(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
     if anim_name == "smash_attack":
         animation_player.play("rest")
+
+func _on_BlinkTimer_timeout():
+    var blink_speed = 2.5#1.0 + rand_range(0.5, 1.5)
+    eyes_player.play("blink", -1, blink_speed)
+    blink_timer.wait_time = rand_range(1, 6)
+    blink_timer.start()
