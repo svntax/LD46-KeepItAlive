@@ -5,6 +5,8 @@ const BULLET_KNOCKBACK = 8
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 var shockwave_scene = load("res://Allies/Shockwave.tscn")
 
+onready var game_root = get_tree().get_root().get_node("Gameplay")
+
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
@@ -104,6 +106,9 @@ func spawn_shockwave() -> void:
     var shockwave = shockwave_scene.instance()
     shockwave.global_position = shockwave_spawn_pos.global_position
     get_tree().get_root().add_child(shockwave)
+    
+    game_root.shake_camera(0.2, 4, 30)
+    
     # Also damage all enemies within hitbox
     for body in hitbox.get_overlapping_bodies():
         if body.is_in_group("Enemies"):
