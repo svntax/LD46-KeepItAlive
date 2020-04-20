@@ -4,14 +4,15 @@ onready var ysort_group = $YSort
 onready var camera = $Camera2D
 onready var game_over_menu = $UILayer/GameOverMenu
 onready var game_win_menu = $UILayer/GameWinMenu
+onready var cutscene_player = $CutscenePlayer
 
 onready var screenshake_active = false
 
-enum State {NORMAL, GAME_OVER, WIN}
-onready var game_state = State.NORMAL
+enum State {NORMAL, GAME_OVER, WIN, INTRO}
+onready var game_state = State.INTRO
 
 func _ready():
-    SoundHandler.gameplaySong1.play()
+    cutscene_player.play("fade_in")
 
 func win_game() -> void:
     game_state = State.WIN
@@ -52,3 +53,7 @@ func shake_camera(duration, magnitude, frequency):
         
         camera.offset = Vector2()
         screenshake_active = false
+
+func _on_CutscenePlayer_animation_finished(anim_name):
+    SoundHandler.gameplaySong1.play()
+    game_state = State.NORMAL

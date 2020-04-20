@@ -155,7 +155,8 @@ func _physics_process(delta):
         can_attack = false
         shoot_timer.wait_time = SMASH_INTERVAL
         shoot_timer.start()
-        animation_player.play("smash_attack")
+        if game_root.game_state == game_root.State.NORMAL:
+            animation_player.play("smash_attack")
         
     if _can_move():
         move_and_slide(velocity + knockback_velocity)

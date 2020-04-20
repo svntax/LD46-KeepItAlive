@@ -16,6 +16,7 @@ func reflect_back(vec : Vector2) -> void:
     animation_player.play("reflect")
     is_reflected = true
     max_reflect_count += 1
+    SoundHandler.reflectSound.play()
 
 func set_velocity(x : float, y : float) -> void:
     velocity.x = x

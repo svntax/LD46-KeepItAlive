@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Audio/SoundHandler.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Player_Swings_Sword.wav" type="AudioStream" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Audio/menu_song.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Audio/deathsound.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Audio/victory.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Audio/reflect.wav" type="AudioStream" id=12]
 
 [node name="SoundHandler" type="Node"]
 script = ExtResource( 1 )
@@ -51,4 +52,8 @@ volume_db = -6.0
 
 [node name="VictorySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+volume_db = -6.0
+
+[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
 volume_db = -6.0

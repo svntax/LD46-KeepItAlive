@@ -14,10 +14,17 @@ onready var GAME_DURATION_MILLIS = 8 * 60 * 1000 # 8 minutes
 onready var ENEMIES_PER_MINUTE_START = 2;
 onready var ENEMIES_PER_MINUTE_END = 4;
 
+export (bool) var first_spawn = false
+export (float) var first_spawn_time = 2
+
 func _ready():
     spawn_timer.connect("timeout", self, "_spawn_timer_finished")
     spawn_timer.wait_time = get_spawn_time()
     spawn_timer.one_shot = true
+    
+    if first_spawn:
+        spawn_timer.wait_time = first_spawn_time
+    
     spawn_timer.start()
 
 func spawn_knight_enemy() -> void:

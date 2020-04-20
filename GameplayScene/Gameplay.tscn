@@ -1,13 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameplayScene/Gameplay.gd" type="Script" id=3]
 [ext_resource path="res://Enemies/KnightSpawner.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Enemies/KnightEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Allies/Boss.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/MageSpawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Enemies/MageEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/ProgressUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/GameOverMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/GameWinMenu.tscn" type="PackedScene" id=11]
@@ -29,6 +27,21 @@ extents = Vector2( 24, 8 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 8 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UILayer/FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource( 3 )
@@ -187,18 +200,22 @@ position = Vector2( 320, 104 )
 
 [node name="MageSpawner3" parent="." instance=ExtResource( 7 )]
 position = Vector2( 304, 248 )
+first_spawn = true
 
 [node name="MageSpawner4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 96, 248 )
 
 [node name="KnightSpawner" parent="." instance=ExtResource( 4 )]
 position = Vector2( 4, 176 )
+first_spawn = true
 
 [node name="KnightSpawner2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 396, 176 )
 
 [node name="KnightSpawner3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 192, 318 )
+first_spawn = true
+first_spawn_time = 4.0
 
 [node name="KnightSpawner4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 208, 318 )
@@ -208,14 +225,8 @@ position = Vector2( 208, 318 )
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 200, 228 )
 
-[node name="KnightEnemy" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 50.3561, 180 )
-
 [node name="Boss" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 200, 174 )
-
-[node name="Mage" parent="YSort" instance=ExtResource( 8 )]
-position = Vector2( 304, 245 )
 
 [node name="WallsTilemap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -256,3 +267,16 @@ margin_left = 200.0
 margin_top = 160.324
 margin_right = -200.0
 margin_bottom = -159.676
+
+[node name="FadeRect" type="ColorRect" parent="UILayer"]
+margin_right = 400.0
+margin_bottom = 320.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CutscenePlayer" type="AnimationPlayer" parent="."]
+anims/fade_in = SubResource( 7 )
+[connection signal="animation_finished" from="CutscenePlayer" to="." method="_on_CutscenePlayer_animation_finished"]
