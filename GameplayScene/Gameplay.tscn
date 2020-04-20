@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -20,6 +20,12 @@ extents = Vector2( 24, 16 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 16, 16 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 24, 8 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 8 )
+
 [node name="Gameplay" type="Node2D"]
 script = ExtResource( 3 )
 __meta__ = {
@@ -40,6 +46,7 @@ __meta__ = {
 [node name="InvisibleWalls" type="Node2D" parent="."]
 
 [node name="PlayerWallBottom" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( 200, 320 )
 collision_layer = 32
 collision_mask = 2
@@ -54,6 +61,7 @@ __meta__ = {
 }
 
 [node name="PlayerWallLeft" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( -8, 176 )
 collision_layer = 32
 collision_mask = 2
@@ -68,6 +76,7 @@ __meta__ = {
 }
 
 [node name="PlayerWallRight" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( 408, 176 )
 collision_layer = 32
 collision_mask = 2
@@ -82,6 +91,7 @@ __meta__ = {
 }
 
 [node name="BossWallBottom" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( 200, 304 )
 collision_layer = 64
 collision_mask = 16
@@ -96,6 +106,7 @@ __meta__ = {
 }
 
 [node name="BossWallLeft" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( 16, 176 )
 collision_layer = 64
 collision_mask = 16
@@ -110,6 +121,7 @@ __meta__ = {
 }
 
 [node name="BossWallRight" type="StaticBody2D" parent="InvisibleWalls"]
+visible = false
 position = Vector2( 384, 176 )
 collision_layer = 64
 collision_mask = 16
@@ -122,6 +134,35 @@ shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="OneWayBottom" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 200, 316 )
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/OneWayBottom"]
+shape = SubResource( 5 )
+one_way_collision = true
+
+[node name="OneWayLeft" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 0, 176 )
+rotation = 1.57079
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/OneWayLeft"]
+shape = SubResource( 6 )
+one_way_collision = true
+
+[node name="OneWayRight" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 400, 176 )
+rotation = -1.5708
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/OneWayRight"]
+shape = SubResource( 6 )
+one_way_collision = true
 
 [node name="MageSpawner" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 104 )
@@ -137,6 +178,15 @@ position = Vector2( 96, 248 )
 
 [node name="KnightSpawner" parent="." instance=ExtResource( 4 )]
 position = Vector2( 4, 176 )
+
+[node name="KnightSpawner2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 396, 176 )
+
+[node name="KnightSpawner3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 318 )
+
+[node name="KnightSpawner4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 208, 318 )
 
 [node name="YSort" type="YSort" parent="."]
 
