@@ -14,10 +14,13 @@ func _ready():
 
 func win_game() -> void:
     game_state = State.WIN
+    SoundHandler.gameplaySong1.stop()
+    SoundHandler.victorySound.play()
 
 func game_over() -> void:
     game_state = State.GAME_OVER
     SoundHandler.gameplaySong1.stop()
+    SoundHandler.deathSound.play()
     game_over_menu.show()
 
 # Used to add entities that need to be y-sorted, like enemies

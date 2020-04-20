@@ -68,7 +68,8 @@ func _physics_process(delta):
         direction = 1
     else:
         direction = -1
-    sprite.scale.x = direction
+    if game_root.game_state == game_root.State.NORMAL:
+        sprite.scale.x = direction
     
     if _can_move():
         move_and_slide(velocity)

@@ -9,3 +9,5 @@ onready var bulletHit = $MageProjectileHit
 
 onready var gameplaySong1 = $GameSong1
 onready var mainMenuSong = $MainMenuSong
+onready var deathSound = $DeathSound
+onready var victorySound = $VictorySound
