@@ -4,6 +4,8 @@ onready var animation_player = $AnimationPlayer
 onready var eyes_player = $EyesPlayer
 onready var blink_timer = $BlinkTimer
 
+onready var fading_out = false
+
 func _ready():
     SoundHandler.mainMenuSong.play()
 #    OS.set_window_size(Vector2(800, 640))
@@ -16,8 +18,10 @@ func _process(delta):
     pass
 
 func _on_StartButton_pressed():
-    SoundHandler.mainMenuSong.stop()
-    animation_player.play("fade_out")
+    if not fading_out:
+        fading_out = true
+        SoundHandler.mainMenuSong.stop()
+        animation_player.play("fade_out")
 
 func _on_ExitButton_pressed():
     get_tree().quit()
