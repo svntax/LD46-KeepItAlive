@@ -10,7 +10,8 @@ onready var game_root = get_tree().get_root().get_node("Gameplay")
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-onready var health = 10
+const MAX_HEALTH = 10
+onready var health = MAX_HEALTH
 onready var is_dead = false
 
 onready var shoot_timer = $ShootTimer
@@ -20,6 +21,7 @@ onready var movement_duration_timer = $MovementDurationTimer
 onready var animation_player = $AnimationPlayer
 onready var effects_player = $EffectsPlayer
 onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
+onready var health_bar = $UI/HealthBar
 
 onready var AGGRO_RANGE = 300
 onready var SPEED = 500
@@ -43,8 +45,9 @@ func _ready():
     movement_duration_timer.connect("timeout", self, "_end_movement")
     movement_duration_timer.one_shot = true
     
-    
     hitbox.connect("body_entered", self, "_on_body_entered")
+    
+    health_bar.set_value(100)
 
 # Shoots a bullet towards the player
 #func shoot_bullet() -> void:
@@ -99,12 +102,17 @@ func kill() -> void:
     hitbox.monitorable = false
     game_root.game_over()
 
+func update_health_bar() -> void:
+    var value = floor(100.0 * health / MAX_HEALTH)
+    health_bar.set_value(value)
+
 func damage() -> void:
     if health <= 0:
         pass
     else:
         if !effects_player.is_playing():
             health -= 1
+            update_health_bar()
             if health <= 0:
                 # Do NOT queue_free() the boss, do a custom death handling
                 kill()
