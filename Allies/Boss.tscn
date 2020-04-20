@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Allies/boss_monster.png" type="Texture" id=1]
 [ext_resource path="res://Allies/Boss.gd" type="Script" id=2]
@@ -195,6 +195,22 @@ tracks/0/keys = {
 "values": [ false, true, false, true, false, true ]
 }
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.67451, 0.196078, 0.196078, 1 )
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.270588, 0.156863, 0.235294, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.270588, 0.156863, 0.235294, 1 )
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
 [node name="Boss" type="KinematicBody2D" groups=[
 "Boss",
 ]]
@@ -268,4 +284,22 @@ anims/smash_attack = SubResource( 4 )
 
 [node name="EffectsPlayer" type="AnimationPlayer" parent="."]
 anims/damaged = SubResource( 5 )
+
+[node name="UI" type="Node2D" parent="."]
+position = Vector2( 0, -57 )
+z_index = 10
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+margin_left = -28.0
+margin_top = -2.0
+margin_right = 28.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 2 )
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
+value = 65.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
