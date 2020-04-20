@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Audio/SoundHandler.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Player_Swings_Sword.wav" type="AudioStream" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Audio/victory.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Audio/reflect.wav" type="AudioStream" id=12]
 [ext_resource path="res://Audio/reflect2.wav" type="AudioStream" id=13]
+[ext_resource path="res://Audio/wall_bounce.wav" type="AudioStream" id=14]
 
 [node name="SoundHandler" type="Node"]
 script = ExtResource( 1 )
@@ -62,3 +63,6 @@ volume_db = -6.0
 [node name="ReflectSound2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
 volume_db = -6.0
+
+[node name="WallHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )

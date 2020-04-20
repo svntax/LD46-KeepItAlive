@@ -33,6 +33,7 @@ func _physics_process(delta):
         max_reflect_count -= 1
         if max_reflect_count <= 0:
             queue_free()
+        SoundHandler.wallHit.play()
     if reflected_velocity.length() > 0:
         reflected_velocity = reflected_velocity.linear_interpolate(Vector2.ZERO, 0.12)
 

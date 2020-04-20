@@ -8,6 +8,7 @@ onready var mageDeath = $MageDeath
 onready var bulletHit = $MageProjectileHit
 onready var reflectSound = $ReflectSound
 onready var reflectSound2 = $ReflectSound2
+onready var wallHit = $WallHit
 
 onready var gameplaySong1 = $GameSong1
 onready var mainMenuSong = $MainMenuSong
