@@ -91,12 +91,13 @@ func kill() -> void:
     hitbox.monitorable = false
 
 func damage() -> void:
-    health -= 1
     if health <= 0:
         # Do NOT queue_free() the boss, do a custom death handling
         kill()
     else:
         if !effects_player.is_playing():
+            health -= 1
+            # The length of the damaged animation is the immunity time
             effects_player.play("damaged")
 
 func spawn_shockwave() -> void:

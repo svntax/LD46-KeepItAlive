@@ -20,6 +20,7 @@ onready var AGGRO_RANGE = 250
 
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
+onready var sword_hitbox = $Body/SwordArea
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var body_root = $Body
@@ -109,6 +110,11 @@ func get_new_movement_direction() -> Vector2:
 func get_coords_of_target_adversary() -> Vector2:
     var boss = get_tree().get_nodes_in_group("Boss")[0]
     return boss.global_position 
+
+func sword_slash() -> void:
+    for body in sword_hitbox.get_overlapping_bodies():
+        if body.is_in_group("Boss"):
+            body.damage()
 
 func damage() -> void:
     health -= 1
