@@ -70,6 +70,7 @@ SLASH={
 2d_physics/layer_4="BULLET"
 2d_physics/layer_5="BOSS"
 2d_physics/layer_6="PLAYER_WALL"
+2d_physics/layer_7="BOSS_WALL"
 
 [rendering]
 

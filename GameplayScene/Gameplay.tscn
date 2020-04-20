@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tileset/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GameplayScene/Gameplay.gd" type="Script" id=3]
+[ext_resource path="res://Enemies/KnightSpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemies/KnightEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Allies/Boss.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/MageSpawner.tscn" type="PackedScene" id=7]
@@ -13,8 +14,17 @@ extents = Vector2( 24, 16 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 16 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 24, 16 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16, 16 )
+
 [node name="Gameplay" type="Node2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -20
@@ -23,6 +33,95 @@ cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0, 65536, 1, 0, 65537, 4, 0, 65538, 5, 0, 65539, 5, 0, 65540, 5, 0, 65541, 5, 0, 65542, 5, 0, 65543, 5, 0, 65544, 5, 0, 65545, 5, 0, 65546, 5, 0, 65547, 5, 0, 65548, 5, 0, 65549, 5, 0, 65550, 5, 0, 65551, 5, 0, 65552, 5, 0, 65553, 5, 0, 65554, 5, 0, 65555, 5, 0, 65556, 5, 0, 65557, 5, 0, 65558, 5, 0, 65559, -1610612732, 0, 65560, 1, 0, 131072, 1, 0, 131073, -1073741819, 0, 131074, 6, 0, 131075, 6, 0, 131076, 6, 0, 131077, 6, 0, 131078, 6, 0, 131079, 6, 0, 131080, 6, 0, 131081, 6, 0, 131082, 6, 0, 131083, 6, 0, 131084, 6, 0, 131085, 6, 0, 131086, 6, 0, 131087, 6, 0, 131088, 6, 0, 131089, 6, 0, 131090, 6, 0, 131091, 6, 0, 131092, 6, 0, 131093, 6, 0, 131094, 6, 0, 131095, -1610612731, 0, 131096, 1, 0, 196608, 1, 0, 196609, -1073741819, 0, 196610, 7, 0, 196611, 7, 0, 196612, 7, 0, 196613, 7, 0, 196614, 7, 0, 196615, 7, 0, 196616, 7, 0, 196617, 7, 0, 196618, 7, 0, 196619, 7, 0, 196620, 7, 0, 196621, 7, 0, 196622, 7, 0, 196623, 7, 0, 196624, 7, 0, 196625, 7, 0, 196626, 7, 0, 196627, 7, 0, 196628, 7, 0, 196629, 7, 0, 196630, 7, 0, 196631, -1610612731, 0, 196632, 1, 0, 262144, 1, 0, 262145, -1073741819, 0, 262146, 536870927, 0, 262147, 14, 0, 262148, 15, 0, 262149, 536870925, 0, 262150, 13, 0, 262151, 15, 0, 262152, 536870927, 0, 262153, 15, 0, 262154, 536870926, 0, 262155, 536870926, 0, 262156, 14, 0, 262157, 14, 0, 262158, 14, 0, 262159, 15, 0, 262160, 15, 0, 262161, 536870927, 0, 262162, 15, 0, 262163, 536870927, 0, 262164, 15, 0, 262165, 13, 0, 262166, 536870926, 0, 262167, -1610612731, 0, 262168, 1, 0, 327680, 1, 0, 327681, -1073741819, 0, 327690, 3, 0, 327691, 3, 0, 327692, 3, 0, 327693, 3, 0, 327694, 3, 0, 327703, -1610612731, 0, 327704, 1, 0, 393216, 1, 0, 393217, -1073741819, 0, 393225, 3, 0, 393226, 2, 0, 393227, 2, 0, 393228, 2, 0, 393229, 2, 0, 393230, 2, 0, 393231, 3, 0, 393239, -1610612731, 0, 393240, 1, 0, 458752, 5, 0, 458753, 8, 0, 458760, 3, 0, 458761, 2, 0, 458762, 2, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 2, 0, 458767, 2, 0, 458768, 3, 0, 458775, -1610612728, 0, 458776, 5, 0, 524288, 6, 0, 524289, 10, 0, 524290, 3, 0, 524295, 3, 0, 524296, 2, 0, 524297, 2, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 2, 0, 524304, 2, 0, 524305, 3, 0, 524310, 3, 0, 524311, 9, 0, 524312, 6, 0, 589824, 7, 0, 589825, 12, 0, 589826, 2, 0, 589827, 3, 0, 589831, 3, 0, 589832, 2, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 2, 0, 589841, 3, 0, 589845, 3, 0, 589846, 2, 0, 589847, 11, 0, 589848, 7, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 2, 0, 655364, 3, 0, 655367, 3, 0, 655368, 2, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 2, 0, 655377, 3, 0, 655380, 3, 0, 655381, 2, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 2, 0, 720900, 3, 0, 720903, 3, 0, 720904, 2, 0, 720905, 2, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 2, 0, 720912, 2, 0, 720913, 3, 0, 720916, 3, 0, 720917, 2, 0, 720918, 0, 0, 720919, 0, 0, 720920, 0, 0, 786432, 1610612741, 0, 786433, -1073741816, 0, 786434, 2, 0, 786435, 3, 0, 786440, 3, 0, 786441, 2, 0, 786442, 2, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 2, 0, 786447, 2, 0, 786448, 3, 0, 786453, 3, 0, 786454, 2, 0, 786455, 1610612744, 0, 786456, 1610612741, 0, 851968, 1, 0, 851969, -1073741819, 0, 851970, 3, 0, 851977, 3, 0, 851978, 2, 0, 851979, 2, 0, 851980, 2, 0, 851981, 2, 0, 851982, 2, 0, 851983, 3, 0, 851990, 3, 0, 851991, -1610612731, 0, 851992, 1, 0, 917504, 1, 0, 917505, -1073741819, 0, 917514, 3, 0, 917515, 3, 0, 917516, 3, 0, 917517, 3, 0, 917518, 3, 0, 917527, -1610612731, 0, 917528, 1, 0, 983040, 1, 0, 983041, -1073741819, 0, 983063, -1610612731, 0, 983064, 1, 0, 1048576, 1, 0, 1048577, -1073741819, 0, 1048587, 3, 0, 1048588, 3, 0, 1048589, 3, 0, 1048599, -1610612731, 0, 1048600, 1, 0, 1114112, 1, 0, 1114113, -1073741819, 0, 1114122, 3, 0, 1114123, 2, 0, 1114124, 0, 0, 1114125, 2, 0, 1114126, 3, 0, 1114135, -1610612731, 0, 1114136, 1, 0, 1179648, 1, 0, 1179649, -1073741820, 0, 1179650, 1610612741, 0, 1179651, 1610612741, 0, 1179652, 1610612741, 0, 1179653, 1610612741, 0, 1179654, 1610612741, 0, 1179655, 1610612741, 0, 1179656, 1610612741, 0, 1179657, 1610612741, 0, 1179658, -1073741816, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 1610612744, 0, 1179663, 1610612741, 0, 1179664, 1610612741, 0, 1179665, 1610612741, 0, 1179666, 1610612741, 0, 1179667, 1610612741, 0, 1179668, 1610612741, 0, 1179669, 1610612741, 0, 1179670, 1610612741, 0, 1179671, 1610612740, 0, 1179672, 1, 0, 1245184, 1, 0, 1245185, 1, 0, 1245186, 1, 0, 1245187, 1, 0, 1245188, 1, 0, 1245189, 1, 0, 1245190, 1, 0, 1245191, 1, 0, 1245192, 1, 0, 1245193, 1, 0, 1245194, -1073741819, 0, 1245195, 0, 0, 1245196, 0, 0, 1245197, 0, 0, 1245198, -1610612731, 0, 1245199, 1, 0, 1245200, 1, 0, 1245201, 1, 0, 1245202, 1, 0, 1245203, 1, 0, 1245204, 1, 0, 1245205, 1, 0, 1245206, 1, 0, 1245207, 1, 0, 1245208, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="InvisibleWalls" type="Node2D" parent="."]
+
+[node name="PlayerWallBottom" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 200, 320 )
+collision_layer = 32
+collision_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/PlayerWallBottom"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlayerWallLeft" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( -8, 176 )
+collision_layer = 32
+collision_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/PlayerWallLeft"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlayerWallRight" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 408, 176 )
+collision_layer = 32
+collision_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/PlayerWallRight"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BossWallBottom" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 200, 304 )
+collision_layer = 64
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/BossWallBottom"]
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BossWallLeft" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 16, 176 )
+collision_layer = 64
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/BossWallLeft"]
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BossWallRight" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 384, 176 )
+collision_layer = 64
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/BossWallRight"]
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="MageSpawner" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 104 )
@@ -36,6 +135,9 @@ position = Vector2( 304, 248 )
 [node name="MageSpawner4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 96, 248 )
 
+[node name="KnightSpawner" parent="." instance=ExtResource( 4 )]
+position = Vector2( 4, 176 )
+
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
@@ -46,27 +148,3 @@ position = Vector2( 50.3561, 167.866 )
 
 [node name="Boss" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 200, 142 )
-
-[node name="PlayerWallBottom" type="StaticBody2D" parent="."]
-collision_layer = 32
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWallBottom"]
-position = Vector2( 200, 320 )
-shape = SubResource( 1 )
-
-[node name="PlayerWallLeft" type="StaticBody2D" parent="."]
-position = Vector2( -8, 176 )
-collision_layer = 32
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWallLeft"]
-shape = SubResource( 2 )
-
-[node name="PlayerWallRight" type="StaticBody2D" parent="."]
-position = Vector2( 408, 176 )
-collision_layer = 32
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWallRight"]
-shape = SubResource( 2 )
