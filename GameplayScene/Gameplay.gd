@@ -34,6 +34,8 @@ func game_over() -> void:
     game_state = State.GAME_OVER
     SoundHandler.gameplaySong1.stop()
     SoundHandler.deathSound.play()
+    
+    yield(get_tree().create_timer(4), "timeout")
     game_over_menu.show()
 
 # Used to add entities that need to be y-sorted, like enemies

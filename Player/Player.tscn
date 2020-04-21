@@ -94,7 +94,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -196,6 +196,7 @@ z_index = 10
 
 [node name="Sword" type="Area2D" parent="SwordPivot/HiltPivot"]
 position = Vector2( -12, 0 )
+monitoring = false
 collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordPivot/HiltPivot/Sword"]

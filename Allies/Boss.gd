@@ -4,18 +4,21 @@ const BULLET_KNOCKBACK = 8
 
 var bullet_scene = load("res://Bullets/Bullet.tscn")
 var shockwave_scene = load("res://Allies/Shockwave.tscn")
+var blood_scene = load("res://Allies/DeadBoss.tscn")
 
 onready var game_root = get_tree().get_root().get_node("Gameplay")
 
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-const MAX_HEALTH = 20
+const MAX_HEALTH = 2#20
 onready var health = MAX_HEALTH
 onready var is_dead = false
 
 onready var shoot_timer = $ShootTimer
 onready var hitbox = $Hitbox
+onready var body = $Body
+onready var ui = $UI
 onready var movement_interval_timer = $MovementIntervalTimer
 onready var movement_duration_timer = $MovementDurationTimer
 onready var animation_player = $AnimationPlayer
@@ -24,6 +27,7 @@ onready var eyes_player = $EyesPlayer
 onready var blink_timer = $BlinkTimer
 onready var shockwave_spawn_pos = $ShockwaveSpawnPosition
 onready var health_bar = $UI/HealthBar
+onready var dead_sprite_pos = $DeadSpritePos
 
 onready var AGGRO_RANGE = 300
 onready var SPEED = 500
@@ -97,18 +101,22 @@ func get_coords_of_closest_adversary() -> Vector2:
             closest = enemies[i].global_position.distance_to(global_position)
             closestPosition = enemies[i].global_position
         return closestPosition
-    
-    # Default to middle of level
-
 
 func kill() -> void:
-    hide()
+    body.hide()
+    ui.hide()
+    
+    var blood = blood_scene.instance()
+    blood.global_position = dead_sprite_pos.global_position
+    game_root.add_blood_splatter(blood)
+    
     is_dead = true
     # Disable collisions
     self.collision_layer = 0
     self.collision_mask = 0
-    hitbox.monitoring = false
-    hitbox.monitorable = false
+    hitbox.collision_layer = 0
+    hitbox.collision_mask = 0
+    
     game_root.game_over()
 
 func update_health_bar() -> void:

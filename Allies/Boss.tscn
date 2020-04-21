@@ -304,6 +304,12 @@ texture = ExtResource( 6 )
 hframes = 3
 frame = 2
 
+[node name="DeadSpritePos" type="Position2D" parent="."]
+position = Vector2( 0, -21 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -6 )
 shape = SubResource( 1 )
