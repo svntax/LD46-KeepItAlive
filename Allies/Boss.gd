@@ -11,7 +11,7 @@ onready var game_root = get_tree().get_root().get_node("Gameplay")
 onready var velocity : Vector2 = Vector2()
 onready var knockback_velocity : Vector2 = Vector2()
 
-const MAX_HEALTH = 2#20
+const MAX_HEALTH = 20
 onready var health = MAX_HEALTH
 onready var is_dead = false
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://MainMenu/Main.gd" type="Script" id=1]
 [ext_resource path="res://Allies/boss_monster.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://UI/button_01_pressed.png" type="Texture" id=6]
 [ext_resource path="res://Allies/boss_eyes.png" type="Texture" id=7]
 [ext_resource path="res://Enemies/magic_circle.png" type="Texture" id=8]
+[ext_resource path="res://CompassPro.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Player/player.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_out"
@@ -57,6 +59,18 @@ tracks/0/keys = {
 "values": [ 2, 1, 0, 1, 2 ]
 }
 
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 2
+outline_color = Color( 0.247059, 0.247059, 0.454902, 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+outline_size = 2
+outline_color = Color( 0.247059, 0.247059, 0.454902, 1 )
+font_data = ExtResource( 9 )
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -98,7 +112,7 @@ __meta__ = {
 }
 
 [node name="BossSprite" type="Sprite" parent="."]
-position = Vector2( 200, 153 )
+position = Vector2( 184, 153 )
 texture = ExtResource( 2 )
 
 [node name="Eyes" type="Sprite" parent="BossSprite"]
@@ -106,6 +120,10 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 7 )
 hframes = 3
 frame = 2
+
+[node name="PlayerSprite" type="Sprite" parent="."]
+position = Vector2( 232, 169 )
+texture = ExtResource( 10 )
 
 [node name="StartButtonContainer" type="Node2D" parent="."]
 position = Vector2( 140, 200 )
@@ -185,6 +203,41 @@ anims/blink = SubResource( 3 )
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_top = 8.0
+margin_right = 400.0
+margin_bottom = 176.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="CenterContainer"]
+margin_left = 112.0
+margin_top = 69.0
+margin_right = 288.0
+margin_bottom = 99.0
+custom_fonts/font = SubResource( 4 )
+text = "Guardian Lich"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title2" type="Label" parent="."]
+margin_left = 172.0
+margin_top = 77.0
+margin_right = 348.0
+margin_bottom = 107.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.843137, 0.482353, 0.729412, 1 )
+text = "Lich"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="StartButtonContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButtonContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
